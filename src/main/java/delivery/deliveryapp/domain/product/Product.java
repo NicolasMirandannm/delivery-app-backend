@@ -16,14 +16,14 @@ public class Product extends AggregateRoot {
 
     private String name;
     private Boolean isCustomizable;
-    private UniqueIdentifier categoryId;
+    private UniqueIdentifier productCategoryId;
     private List<ServingSize> servingSizes;
 
     private Product(UniqueIdentifier id, String name, Boolean isCustomizable, UniqueIdentifier categoryId, List<ServingSize> servingSizes) {
         super(id);
         this.name = name;
         this.isCustomizable = isCustomizable;
-        this.categoryId = categoryId;
+        this.productCategoryId = categoryId;
         this.servingSizes = servingSizes;
     }
 

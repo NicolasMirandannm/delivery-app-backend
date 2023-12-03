@@ -14,7 +14,7 @@ public class ServingSize extends DomainEntity {
     private String description;
     private Boolean activedComplements;
     private Integer amountOfComplements;
-    private UniqueIdentifier complementTypeId;
+    private UniqueIdentifier complementCategoryId;
 
     private ServingSize(UniqueIdentifier id, String name, String description, Boolean activedComplements, Integer amountOfComplements,
                         UniqueIdentifier complementTypeId) {
@@ -23,7 +23,7 @@ public class ServingSize extends DomainEntity {
         this.description = description;
         this.activedComplements = activedComplements;
         this.amountOfComplements = amountOfComplements;
-        this.complementTypeId = complementTypeId;
+        this.complementCategoryId = complementTypeId;
     }
 
     public static ServingSize create(UniqueIdentifier id, String name, String description, Boolean activedComplements, Integer amountOfComplements,

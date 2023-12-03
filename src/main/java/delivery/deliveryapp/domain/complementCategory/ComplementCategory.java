@@ -13,17 +13,17 @@ import java.util.List;
 public class ComplementCategory extends AggregateRoot {
 
     private String categoryName;
-    private UniqueIdentifier productServingSizeId;
+    private UniqueIdentifier productId;
     private List<ComplementItem> complements;
 
-    private ComplementCategory(UniqueIdentifier id, String categoryName, UniqueIdentifier productServingSizeId, List<ComplementItem> complements) {
+    private ComplementCategory(UniqueIdentifier id, String categoryName, UniqueIdentifier productId, List<ComplementItem> complements) {
         super(id);
         this.categoryName = categoryName;
-        this.productServingSizeId = productServingSizeId;
+        this.productId = productId;
         this.complements = complements;
     }
 
-    public static ComplementCategory create(UniqueIdentifier id, String categoryName, UniqueIdentifier productServingSizeId, List<ComplementItem> complements) {
-        return new ComplementCategory(id, categoryName, productServingSizeId, complements);
+    public static ComplementCategory create(UniqueIdentifier id, String categoryName, UniqueIdentifier productId, List<ComplementItem> complements) {
+        return new ComplementCategory(id,categoryName, productId, complements);
     }
 }

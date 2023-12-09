@@ -16,6 +16,7 @@ public class ProductTest {
     private Boolean isCustomizable;
     private UniqueIdentifier categoryId;
     private List<ServingSize> servingSizes;
+    private Boolean isActive;
 
     private Product product;
 
@@ -25,13 +26,14 @@ public class ProductTest {
         this.isCustomizable = true;
         this.categoryId = UniqueIdentifier.create();
         this.servingSizes = new ArrayList<ServingSize>();
+        this.isActive = true;
 
-        this.product = Product.create(UniqueIdentifier.create(), name, isCustomizable, categoryId, servingSizes);
+        this.product = Product.create(UniqueIdentifier.create(), name, isCustomizable, categoryId, servingSizes, isActive);
     }
 
     @Test
     void should_create_a_product() {
-        var productCreated = Product.create(UniqueIdentifier.create(), name, isCustomizable, categoryId, servingSizes);
+        var productCreated = Product.create(UniqueIdentifier.create(), name, isCustomizable, categoryId, servingSizes, isActive);
 
         Assertions.assertNotNull(productCreated.getId());
     }

@@ -16,19 +16,21 @@ public class Product extends AggregateRoot {
 
     private String name;
     private Boolean isCustomizable;
+    private Boolean isActived;
     private UniqueIdentifier productCategoryId;
     private List<ServingSize> servingSizes;
 
-    private Product(UniqueIdentifier id, String name, Boolean isCustomizable, UniqueIdentifier categoryId, List<ServingSize> servingSizes) {
+    private Product(UniqueIdentifier id, String name, Boolean isCustomizable, UniqueIdentifier categoryId, List<ServingSize> servingSizes, Boolean isActived) {
         super(id);
         this.name = name;
         this.isCustomizable = isCustomizable;
         this.productCategoryId = categoryId;
         this.servingSizes = servingSizes;
+        this.isActived = isActived;
     }
 
-    public static Product create(UniqueIdentifier id, String name, Boolean isCustomizable, UniqueIdentifier categoryId, List<ServingSize> servingSizes) {
-        return new Product(id, name, isCustomizable, categoryId, servingSizes);
+    public static Product create(UniqueIdentifier id, String name, Boolean isCustomizable, UniqueIdentifier categoryId, List<ServingSize> servingSizes, Boolean isActived) {
+        return new Product(id, name, isCustomizable, categoryId, servingSizes, isActived);
     }
 
     public void addAServingSize(ServingSize servingSize) {
@@ -38,5 +40,9 @@ public class Product extends AggregateRoot {
             this.servingSizes = new ArrayList<ServingSize>();
 
         this.servingSizes.add(servingSize);
+    }
+
+    public Boolean isActive() {
+        return this.isActived;
     }
 }

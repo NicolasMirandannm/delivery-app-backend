@@ -6,4 +6,8 @@ public abstract class AggregateRoot extends DomainEntity{
     protected AggregateRoot(UniqueIdentifier id) {
         super(id);
     }
+
+    public String getIdValue() {
+        return this.id.value();
+    }
 }

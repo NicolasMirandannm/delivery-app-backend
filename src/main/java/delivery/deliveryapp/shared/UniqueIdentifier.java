@@ -4,7 +4,7 @@ import delivery.deliveryapp.shared.exceptions.DomainException;
 
 import java.util.UUID;
 
-public record UniqueIdentifier(String uuid) {
+public record UniqueIdentifier(String value) {
 
     public static UniqueIdentifier create() {
         return new UniqueIdentifier(generateRandomId());

@@ -15,10 +15,14 @@ public class ProductCategory extends AggregateRoot {
     private ProductCategory(UniqueIdentifier id, String categoryName, Boolean isActive) {
         super(id);
         this.categoryName = categoryName;
-        this.isActive = true;
+        this.isActive = isActive;
     }
 
     public static ProductCategory create(UniqueIdentifier id, String categoryName, Boolean isActive) {
         return new ProductCategory(id, categoryName, isActive);
+    }
+
+    public Boolean isActive() {
+        return this.isActive;
     }
 }

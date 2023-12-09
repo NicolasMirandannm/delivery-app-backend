@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductCatalogServiceTest {
@@ -83,6 +84,13 @@ public class ProductCatalogServiceTest {
         var products = catalogs.get(0).getProducts();
 
         Assertions.assertTrue(products.isEmpty());
+    }
+
+    @Test
+    void should_return_an_empty_list_when_no_categories_exist() {
+        var catalogItems = productCatalogService.assemble(new ArrayList<>(), new ArrayList<>());
+
+        Assertions.assertTrue(catalogItems.isEmpty());
     }
 
 }

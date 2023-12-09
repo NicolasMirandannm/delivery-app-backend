@@ -4,7 +4,7 @@ import delivery.deliveryapp.shared.UniqueIdentifier;
 
 import java.util.List;
 
-public interface Repository<T> {
+public interface IRepository<T extends AggregateRoot> {
     public void create(T aggregateRoot);
     public void update(T aggregateRoot);
     public void delete(UniqueIdentifier aggregateRootId);

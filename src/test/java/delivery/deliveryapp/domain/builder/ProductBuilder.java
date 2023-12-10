@@ -43,7 +43,7 @@ public class ProductBuilder {
     }
 
     public ProductBuilder withServingSizeInative() {
-        var servingSize = ServingSize.create(UniqueIdentifier.create(),"Pequeno", "tamanho pequeno", false, 1, UniqueIdentifier.create());
+        var servingSize = ServingSize.create(UniqueIdentifier.create(), "Pequeno", "tamanho pequeno", false, 1, UniqueIdentifier.create());
         servingSizes = List.of(servingSize);
         return this;
     }
@@ -63,11 +63,15 @@ public class ProductBuilder {
         if (id == null)
             id = UniqueIdentifier.create();
         if (servingSizes == null) {
-            var servingSize = ServingSize.create(UniqueIdentifier.create(),"Pequeno", "tamanho pequeno", true, 1, UniqueIdentifier.create());
+            var servingSize = ServingSize.create(UniqueIdentifier.create(), "Pequeno", "tamanho pequeno", true, 1, UniqueIdentifier.create());
             servingSizes = List.of(servingSize);
         }
-        if(isActive == null)
+        if (isActive == null)
             isActive = true;
+        if (isCustomizable == null)
+            isCustomizable = true;
+        if (productCategoryId == null)
+            productCategoryId = UniqueIdentifier.create();
         return Product.create(id, name, isCustomizable, productCategoryId, servingSizes, isActive);
     }
 

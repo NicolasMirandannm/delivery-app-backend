@@ -21,4 +21,8 @@ public abstract class DomainEntity {
         else
             return false;
     }
+
+    public String getIdValue() {
+        return this.id.value();
+    }
 }

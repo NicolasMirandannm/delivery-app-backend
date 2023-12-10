@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ProductCatalog {
+public class ProductCatalog implements IProductCatalog {
     private final IProductCategoryRepository productCategoryRepository;
     private final IProductRepository productRepository;
     private final IProductCatalogService productCatalogService;

@@ -33,6 +33,17 @@ public class Product extends AggregateRoot {
         return new Product(id, name, isCustomizable, categoryId, servingSizes, isActived);
     }
 
+    public static Product createNew(String name, UniqueIdentifier categoryId) {
+        DomainException.whenIsNull(name, "cannot create a new product with empty name.");
+        DomainException.whenIsNull(categoryId, "cannot create a new product without a product category identifier.");
+
+        var id = UniqueIdentifier.create();
+        var isCustomizable = true;
+        var isActive = true;
+        var servingSizes = new ArrayList<ServingSize>();
+        return Product.create(id,name, isCustomizable, categoryId, servingSizes, isActive);
+    }
+
     public void addAServingSize(ServingSize servingSize) {
         DomainException.whenIsNull(servingSize, "cannot add an empty serving size in product.");
 

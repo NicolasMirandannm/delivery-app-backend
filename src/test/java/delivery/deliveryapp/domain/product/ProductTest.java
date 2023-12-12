@@ -62,4 +62,37 @@ public class ProductTest {
         Assertions.assertEquals(expectedErrorMessage, exception.getMessage());
         Assertions.assertEquals(0, product.getServingSizes().size());
     }
+
+    @Test
+    void should_create_a_new_product() {
+        var newProductCreated = Product.createNew(name, categoryId);
+
+        Assertions.assertNotNull(newProductCreated);
+        Assertions.assertTrue(newProductCreated.getIsCustomizable());
+        Assertions.assertTrue(newProductCreated.getIsActived());
+        Assertions.assertTrue(newProductCreated.getServingSizes().isEmpty());
+    }
+
+    @Test
+    void should_throw_an_exception_when_name_is_null_on_new_creation() {
+        var expectedErrorMessage = "cannot create a new product with empty name.";
+
+        DomainException exception = Assertions.assertThrows(DomainException.class, () -> {
+            Product.createNew(null, categoryId);
+        });
+
+        Assertions.assertEquals(expectedErrorMessage, exception.getMessage());
+    }
+
+    @Test
+    void should_throw_an_exception_when_productCategoryId_is_null_on_new_creation() {
+        var expectedErrorMessage = "cannot create a new product without a product category identifier.";
+
+        DomainException exception = Assertions.assertThrows(DomainException.class, () -> {
+            Product.createNew(name, null);
+        });
+
+        Assertions.assertEquals(expectedErrorMessage, exception.getMessage());
+    }
+
 }

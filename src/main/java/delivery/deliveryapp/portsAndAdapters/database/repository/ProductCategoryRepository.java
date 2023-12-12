@@ -21,23 +21,31 @@ public class ProductCategoryRepository implements IProductCategoryRepository {
     private final IMapper<ProductCategory, ProductCategorySchema> mapper;
 
     @Override
-    public void create(ProductCategory aggregateRoot) {
+    public void create(ProductCategory productCategory) {
+        var categorySchema = mapper.toPersistence(productCategory);
+        mongoTemplate.save(categorySchema);
+    }
+
+    @Override
+    public void update(ProductCategory productCategory) {
+        var categorySchema = mapper.toPersistence(productCategory);
+        mongoTemplate.save(categorySchema);
 
     }
 
     @Override
-    public void update(ProductCategory aggregateRoot) {
-
+    public void delete(UniqueIdentifier identifier) {
+        var category = mongoTemplate.findById(identifier.value(), ProductCategorySchema.class);
+        if (category != null)
+            mongoTemplate.remove(category);
     }
 
     @Override
-    public void delete(UniqueIdentifier aggregateRootId) {
-
-    }
-
-    @Override
-    public ProductCategory findBy(UniqueIdentifier aggregateRootId) {
-        return null;
+    public ProductCategory findBy(UniqueIdentifier identifier) {
+        var categorySchema = mongoTemplate.findById(identifier.value(), ProductCategorySchema.class);
+        return categorySchema == null
+                ? null
+                : mapper.toDomain(categorySchema);
     }
 
     @Override

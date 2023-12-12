@@ -1,3 +1,9 @@
+#hide on mongo container using docker exect -it <container_id> mongosh -u user -p password
+#create a database devdelivery
+#use database with comand: use devdelivery;
+#after should create a user for this application usign this comand: db.createUser({user: "testUser", pwd: "123", roles: [{role: "readWrite", db: "*"}]})
+#after you should be quit bash of container using: ctrl + p + q
+
 version: '3'
 
 services:

@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### database docker data ###
+docker-dev/database/data/*

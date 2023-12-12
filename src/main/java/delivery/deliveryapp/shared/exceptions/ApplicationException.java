@@ -9,7 +9,7 @@ public class ApplicationException extends RuntimeException{
         super("An exception has occurred in the application layer.");
     }
 
-    public void whenIsNull(Object object, String message) {
+    public static void whenIsNull(Object object, String message) {
         if (object == null)
             throw new ApplicationException(message);
     }

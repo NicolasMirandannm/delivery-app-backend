@@ -1,7 +1,7 @@
 package delivery.deliveryapp.domain.complementCategory.entities;
 
 import delivery.deliveryapp.domain.complementCategory.enums.MeasurementType;
-import delivery.deliveryapp.domain.complementCategory.valueObjects.UnitOfMeasurement;
+import delivery.deliveryapp.shared.valueObjects.UnitOfMeasurement;
 import delivery.deliveryapp.shared.UniqueIdentifier;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

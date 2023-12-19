@@ -1,8 +1,8 @@
-package delivery.deliveryapp.portsAndAdapters.database.mapper;
+package delivery.deliveryapp.portsAndAdapters.database.mapper.productCategory;
 
 import delivery.deliveryapp.domain.builder.ProductCategoryBuilder;
 import delivery.deliveryapp.domain.productCategory.ProductCategory;
-import delivery.deliveryapp.portsAndAdapters.database.repository.mapper.implementations.ProductCategoryMapper;
+import delivery.deliveryapp.portsAndAdapters.database.repository.mapper.implementations.productCategory.ProductCategoryMapper;
 import delivery.deliveryapp.portsAndAdapters.database.schemas.ProductCategorySchema;
 import delivery.deliveryapp.shared.exceptions.InfraException;
 import org.junit.jupiter.api.Assertions;

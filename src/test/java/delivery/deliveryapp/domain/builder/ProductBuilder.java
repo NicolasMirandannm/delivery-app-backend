@@ -1,8 +1,11 @@
 package delivery.deliveryapp.domain.builder;
 
+import delivery.deliveryapp.domain.complementCategory.enums.MeasurementType;
 import delivery.deliveryapp.domain.product.Product;
+import delivery.deliveryapp.domain.product.entities.FeedstockBaseConsumption;
 import delivery.deliveryapp.domain.product.entities.ServingSize;
 import delivery.deliveryapp.shared.UniqueIdentifier;
+import delivery.deliveryapp.shared.valueObjects.UnitOfMeasurement;
 
 import java.util.List;
 
@@ -37,13 +40,16 @@ public class ProductBuilder {
         return this;
     }
 
-    public ProductBuilder withServingSizes(List<ServingSize> servingSizes) {
-        this.servingSizes = servingSizes;
+    public ProductBuilder withServingSizes() {
+        var feedstocksBaseConsumption = List.of(FeedstockBaseConsumption.createNew(UniqueIdentifier.create(), 1, UnitOfMeasurement.create(MeasurementType.GRAM, 10.0)));
+        var servingSize = ServingSize.create(UniqueIdentifier.create(), "Pequeno", "tamanho pequeno", true, 1, UniqueIdentifier.create(), feedstocksBaseConsumption);
+        servingSizes = List.of(servingSize);
         return this;
     }
 
     public ProductBuilder withServingSizeInative() {
-        var servingSize = ServingSize.create(UniqueIdentifier.create(), "Pequeno", "tamanho pequeno", false, 1, UniqueIdentifier.create());
+        var feedstocksBaseConsumption = List.of(FeedstockBaseConsumption.createNew(UniqueIdentifier.create(), 1, UnitOfMeasurement.create(MeasurementType.GRAM, 10.0)));
+        var servingSize = ServingSize.create(UniqueIdentifier.create(), "Pequeno", "tamanho pequeno", false, 1, null, feedstocksBaseConsumption);
         servingSizes = List.of(servingSize);
         return this;
     }
@@ -62,10 +68,6 @@ public class ProductBuilder {
     public Product build() {
         if (id == null)
             id = UniqueIdentifier.create();
-        if (servingSizes == null) {
-            var servingSize = ServingSize.create(UniqueIdentifier.create(), "Pequeno", "tamanho pequeno", true, 1, UniqueIdentifier.create());
-            servingSizes = List.of(servingSize);
-        }
         if (isActive == null)
             isActive = true;
         if (isCustomizable == null)

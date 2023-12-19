@@ -1,6 +1,6 @@
 package delivery.deliveryapp.domain.complementCategory.entities;
 
-import delivery.deliveryapp.domain.complementCategory.valueObjects.UnitOfMeasurement;
+import delivery.deliveryapp.shared.valueObjects.UnitOfMeasurement;
 import delivery.deliveryapp.shared.UniqueIdentifier;
 import delivery.deliveryapp.shared.ddd.DomainEntity;
 import lombok.Getter;

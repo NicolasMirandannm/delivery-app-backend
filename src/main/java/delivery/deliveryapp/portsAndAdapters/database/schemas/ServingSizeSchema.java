@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -16,8 +17,9 @@ public class ServingSizeSchema {
     private Boolean actived_complements;
     private Integer amount_of_complements;
     private String complement_category_id;
+    private List<FeedstockBaseConsumptionSchema> feedstocks_base_consumption;
 
-    public ServingSizeSchema(String id, String name, String description, Boolean actived_complements, Integer amount_of_complements, String complement_category_id) {
+    public ServingSizeSchema(String id, String name, String description, Boolean actived_complements, Integer amount_of_complements, String complement_category_id, List<FeedstockBaseConsumptionSchema> feedstocks_base_consumption) {
         super();
         this.id = id;
         this.name = name;
@@ -25,6 +27,7 @@ public class ServingSizeSchema {
         this.actived_complements = actived_complements;
         this.amount_of_complements = amount_of_complements;
         this.complement_category_id = complement_category_id;
+        this.feedstocks_base_consumption = feedstocks_base_consumption;
     }
 
     @Override
@@ -32,6 +35,12 @@ public class ServingSizeSchema {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ServingSizeSchema that = (ServingSizeSchema) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(actived_complements, that.actived_complements) && Objects.equals(amount_of_complements, that.amount_of_complements) && Objects.equals(complement_category_id, that.complement_category_id);
+        return Objects.equals(id, that.id) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(actived_complements, that.actived_complements) &&
+                Objects.equals(amount_of_complements, that.amount_of_complements) &&
+                Objects.equals(complement_category_id, that.complement_category_id) &&
+                Objects.equals(feedstocks_base_consumption, that.feedstocks_base_consumption);
     }
 }

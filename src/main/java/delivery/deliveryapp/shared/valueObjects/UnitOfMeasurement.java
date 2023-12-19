@@ -1,4 +1,4 @@
-package delivery.deliveryapp.domain.complementCategory.valueObjects;
+package delivery.deliveryapp.shared.valueObjects;
 
 import delivery.deliveryapp.domain.complementCategory.enums.MeasurementType;
 import delivery.deliveryapp.shared.exceptions.DomainException;

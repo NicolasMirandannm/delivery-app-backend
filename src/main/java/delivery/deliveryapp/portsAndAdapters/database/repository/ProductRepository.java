@@ -19,23 +19,30 @@ public class ProductRepository implements IProductRepository {
     private final IMapper<Product, ProductSchema> mapper;
 
     @Override
-    public void create(Product aggregateRoot) {
-
+    public void create(Product product) {
+        var productSchema = mapper.toPersistence(product);
+        mongoTemplate.save(productSchema);
     }
 
     @Override
-    public void update(Product aggregateRoot) {
-
+    public void update(Product product) {
+        var productSchema = mapper.toPersistence(product);
+        mongoTemplate.save(productSchema);
     }
 
     @Override
-    public void delete(UniqueIdentifier aggregateRootId) {
-
+    public void delete(UniqueIdentifier productId) {
+        var productSchema = mongoTemplate.findById(productId.value(), ProductSchema.class);
+        if (productSchema != null)
+            mongoTemplate.remove(productSchema);
     }
 
     @Override
-    public Product findBy(UniqueIdentifier aggregateRootId) {
-        return null;
+    public Product findBy(UniqueIdentifier productId) {
+        var productSchema = mongoTemplate.findById(productId.value(), ProductSchema.class);
+        return productSchema != null
+                ? mapper.toDomain(productSchema)
+                : null;
     }
 
     @Override

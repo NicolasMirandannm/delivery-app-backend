@@ -1,4 +1,4 @@
-package delivery.deliveryapp.portsAndAdapters.database.repository.mapper.implementations;
+package delivery.deliveryapp.portsAndAdapters.database.repository.mapper.implementations.productCategory;
 
 import delivery.deliveryapp.domain.productCategory.ProductCategory;
 import delivery.deliveryapp.portsAndAdapters.database.repository.mapper.IMapper;

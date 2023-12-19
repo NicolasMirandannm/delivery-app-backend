@@ -1,23 +1,29 @@
-package delivery.deliveryapp.portsAndAdapters.database.mapper;
+package delivery.deliveryapp.portsAndAdapters.database.mapper.product;
 
-import delivery.deliveryapp.domain.product.Product;
-import delivery.deliveryapp.portsAndAdapters.database.repository.mapper.implementations.ProductMapper;
-import delivery.deliveryapp.portsAndAdapters.database.schemas.ProductSchema;
 import delivery.deliveryapp.domain.builder.ProductBuilder;
+import delivery.deliveryapp.domain.product.Product;
+import delivery.deliveryapp.domain.product.entities.ServingSize;
+import delivery.deliveryapp.portsAndAdapters.database.repository.mapper.IMapper;
+import delivery.deliveryapp.portsAndAdapters.database.repository.mapper.implementations.product.ProductMapper;
+import delivery.deliveryapp.portsAndAdapters.database.schemas.ProductSchema;
 import delivery.deliveryapp.portsAndAdapters.database.schemas.ServingSizeSchema;
 import delivery.deliveryapp.shared.exceptions.InfraException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class ProductMapperTest {
 
     @InjectMocks
     private ProductMapper productMapper;
+
+    @Mock
+    private IMapper<ServingSize, ServingSizeSchema> servingSizeMapper;
 
     private Product product;
     private ProductSchema productSchema;
@@ -30,28 +36,14 @@ public class ProductMapperTest {
                 .withName("product")
                 .build();
 
-        var servingSizeSchema = getServingSizeSchema();
-
         var productId = product.getIdValue();
         var productName = product.getName();
         var productIsCustomizable = product.getIsCustomizable();
         var productIsActived = product.getIsActived();
         var productCategoryId = product.getProductCategoryId().value();
-        var productServingSizes = List.of(servingSizeSchema);
 
-        productSchema = new ProductSchema(productId, productName, productIsCustomizable, productIsActived, productCategoryId, productServingSizes);
+        productSchema = new ProductSchema(productId, productName, productIsCustomizable, productIsActived, productCategoryId, new ArrayList<>());
 
-    }
-
-    private ServingSizeSchema getServingSizeSchema() {
-        var servingSize = product.getServingSizes().get(0);
-        var sizeId = servingSize.getIdValue();
-        var sizeName = servingSize.getName();
-        var sizeDescription = servingSize.getDescription();
-        var sizeHasActivedComplements = servingSize.getActivedComplements();
-        var sizeAmountOfComplements = servingSize.getAmountOfComplements();
-        var sizeComplementCategoryId = servingSize.getComplementCategoryId().value();
-        return new ServingSizeSchema(sizeId, sizeName, sizeDescription, sizeHasActivedComplements, sizeAmountOfComplements, sizeComplementCategoryId);
     }
 
     @Test

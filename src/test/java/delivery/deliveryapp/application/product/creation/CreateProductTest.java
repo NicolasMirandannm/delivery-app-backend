@@ -1,9 +1,11 @@
 package delivery.deliveryapp.application.product.creation;
 
+import delivery.deliveryapp.application.product.creation.dtos.CreateFeedstockBaseConsumptionDto;
 import delivery.deliveryapp.application.product.creation.dtos.CreateProductDto;
 import delivery.deliveryapp.application.product.creation.dtos.CreateServingSizeDto;
 import delivery.deliveryapp.domain.builder.ProductBuilder;
 
+import delivery.deliveryapp.domain.complementCategory.enums.MeasurementType;
 import delivery.deliveryapp.domain.repository.IProductRepository;
 import delivery.deliveryapp.shared.UniqueIdentifier;
 import delivery.deliveryapp.shared.exceptions.ApplicationException;
@@ -36,9 +38,11 @@ public class CreateProductTest {
         var productExpected = ProductBuilder
                 .aProduct()
                 .withName("Mongo Ice cream")
+                .withServingSizes()
                 .build();
         var servingSize = productExpected.getServingSizes().get(0);
-        var servingSizeDto = new CreateServingSizeDto(servingSize.getName(),servingSize.getDescription(),servingSize.getActivedComplements(),servingSize.getAmountOfComplements(),servingSize.getIdValue());
+        var feedstocksBaseConsumption = List.of(new CreateFeedstockBaseConsumptionDto(UniqueIdentifier.create().value(), 1, MeasurementType.GRAM, 10.0));
+        var servingSizeDto = new CreateServingSizeDto(servingSize.getName(),servingSize.getDescription(),servingSize.getActivedComplements(),servingSize.getAmountOfComplements(),servingSize.getIdValue(), feedstocksBaseConsumption);
         var productCreationDto = new CreateProductDto("Mongo Ice cream", categoryId, List.of(servingSizeDto));
 
         var productCreated = createProduct.create(productCreationDto);

@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import delivery.deliveryapp.domain.builder.ServingSizeBuilder;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +47,7 @@ public class ProductTest {
         var activedComplements = true;
         var amountOfComplements = 4;
         var complementTypeId = UniqueIdentifier.create();
-        var servingSize = ServingSize.createNew(name, description, activedComplements, amountOfComplements, complementTypeId);
+        var servingSize = ServingSizeBuilder.aServingSize().build();
 
         this.product.addAServingSize(servingSize);
 

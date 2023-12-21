@@ -40,7 +40,7 @@ public class ProductMapperTest {
         var productName = product.getName();
         var productIsCustomizable = product.getIsCustomizable();
         var productIsActived = product.getIsActived();
-        var productCategoryId = product.getProductCategoryId().value();
+        var productCategoryId = product.getProductCategoryId();
 
         productSchema = new ProductSchema(productId, productName, productIsCustomizable, productIsActived, productCategoryId, new ArrayList<>());
 
@@ -48,7 +48,7 @@ public class ProductMapperTest {
 
     @Test
     void should_map_procut_schema_to_domain_with_empty_serving_sizes_when_serving_size_schema_is_null() {
-        productSchema.setServing_sizes(null);
+        productSchema.setServingSizes(null);
 
         var productMapped = productMapper.toDomain(productSchema);
 
@@ -79,7 +79,7 @@ public class ProductMapperTest {
 
         var productSchemaMapped = productMapper.toPersistence(product);
 
-        Assertions.assertTrue(productSchemaMapped.getServing_sizes().isEmpty());
+        Assertions.assertTrue(productSchemaMapped.getServingSizes().isEmpty());
     }
 
     @Test

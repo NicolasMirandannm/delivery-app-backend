@@ -4,4 +4,5 @@ import delivery.deliveryapp.domain.product.Product;
 import delivery.deliveryapp.shared.ddd.IRepository;
 
 public interface IProductRepository extends IRepository<Product> {
+    public Product findByName(String name);
 }

@@ -4,19 +4,21 @@ import delivery.deliveryapp.application.product.creation.dtos.CreateFeedstockBas
 import delivery.deliveryapp.application.product.creation.dtos.CreateProductDto;
 import delivery.deliveryapp.application.product.creation.dtos.CreateServingSizeDto;
 import delivery.deliveryapp.domain.builder.ProductBuilder;
-
 import delivery.deliveryapp.domain.complementCategory.enums.MeasurementType;
+import delivery.deliveryapp.domain.product.Product;
+import delivery.deliveryapp.domain.product.entities.ServingSize;
 import delivery.deliveryapp.domain.repository.IProductRepository;
 import delivery.deliveryapp.shared.UniqueIdentifier;
 import delivery.deliveryapp.shared.exceptions.ApplicationException;
+import delivery.deliveryapp.shared.service.CreationService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,28 +29,36 @@ public class CreateProductTest {
     @Mock
     private IProductRepository productRepository;
 
+    @Mock
+    private CreationService<CreateServingSizeDto, ServingSize> createServingSizeService;
+
+    private Product product;
+    private CreateProductDto createProductDto;
+    private CreateServingSizeDto servingSizeDto;
+
     @BeforeEach
     void setup() {
         MockitoAnnotations.openMocks(this);
-    }
-
-    @Test
-    void should_create_a_product() {
-        var categoryId = UniqueIdentifier.create().value();
-        var productExpected = ProductBuilder
+        product = ProductBuilder
                 .aProduct()
                 .withName("Mongo Ice cream")
                 .withServingSizes()
                 .build();
-        var servingSize = productExpected.getServingSizes().get(0);
+
+        var categoryId = UniqueIdentifier.create().value();
+        var servingSize = product.getServingSizes().get(0);
         var feedstocksBaseConsumption = List.of(new CreateFeedstockBaseConsumptionDto(UniqueIdentifier.create().value(), 1, MeasurementType.GRAM, 10.0));
-        var servingSizeDto = new CreateServingSizeDto(servingSize.getName(),servingSize.getDescription(),servingSize.getActivedComplements(),servingSize.getAmountOfComplements(),servingSize.getIdValue(), feedstocksBaseConsumption);
-        var productCreationDto = new CreateProductDto("Mongo Ice cream", categoryId, List.of(servingSizeDto));
+        servingSizeDto = new CreateServingSizeDto(servingSize.getName(),servingSize.getDescription(),servingSize.getActivedComplements(),servingSize.getAmountOfComplements(),servingSize.getIdValue(), feedstocksBaseConsumption);
+        createProductDto = new CreateProductDto("Mongo Ice cream", categoryId, List.of(servingSizeDto));
+    }
 
-        var productCreated = createProduct.create(productCreationDto);
+    @Test
+    void should_create_a_product() {
+        Mockito.when(createServingSizeService.create(servingSizeDto)).thenReturn(product.getServingSizes().get(0));
 
-        Assertions.assertEquals(productExpected.getName(), productCreated.getName());
-        Assertions.assertEquals(productExpected.getServingSizes().size(), productCreated.getServingSizes().size());
+        var productCreated = createProduct.create(createProductDto);
+
+        Assertions.assertEquals(product.getName(), productCreated.getName());;
     }
 
     @Test
@@ -57,6 +67,18 @@ public class CreateProductTest {
 
         ApplicationException exception = Assertions.assertThrows(ApplicationException.class, () -> {
             createProduct.create(null);
+        });
+
+        Assertions.assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    @Test
+    void should_throw_an_exception_when_product_with_the_same_name_already_exists() {
+        Mockito.when(productRepository.findByName(product.getName())).thenReturn(product);
+        var expectedMessage = "A product already exists with the same name";
+
+        ApplicationException exception = Assertions.assertThrows(ApplicationException.class, () -> {
+            createProduct.create(createProductDto);
         });
 
         Assertions.assertEquals(expectedMessage, exception.getMessage());

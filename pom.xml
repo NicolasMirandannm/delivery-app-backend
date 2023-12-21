@@ -10,7 +10,6 @@
 	</parent>
 	<groupId>delivery</groupId>
 	<artifactId>delivery-app</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>delivery-app</name>
 	<description>Management of delivery</description>
 	<properties>

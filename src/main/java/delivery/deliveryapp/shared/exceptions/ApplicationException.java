@@ -1,8 +1,14 @@
 package delivery.deliveryapp.shared.exceptions;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(HttpStatus.BAD_REQUEST)
 public class ApplicationException extends RuntimeException{
     public ApplicationException(String message) {
         super(message);
+        StackTraceElement[] elements = {};
+        this.setStackTrace(elements);
     }
 
     public ApplicationException() {
@@ -11,6 +17,10 @@ public class ApplicationException extends RuntimeException{
 
     public static void whenIsNull(Object object, String message) {
         if (object == null)
-            throw new ApplicationException(message);
+            throwException(message);
+    }
+
+    public static void throwException(String message) {
+        throw new ApplicationException(message);
     }
 }

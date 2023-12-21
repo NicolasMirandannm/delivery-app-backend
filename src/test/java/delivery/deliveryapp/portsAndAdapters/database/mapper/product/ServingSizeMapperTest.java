@@ -50,7 +50,7 @@ public class ServingSizeMapperTest {
         servingSizeSchema = new ServingSizeSchema(sizeId,sizeName,sizeDescription,sizeHasActivedComplements,sizeAmountOfComplements,sizeComplementCategoryId, List.of(feedstockBaseConsumption));
 
         Mockito.when(feedstockBaseConsumptionMapper.toDomain(feedstockBaseConsumption)).thenReturn(servingSize.getFeedstocksBaseConsumption().get(0));
-        Mockito.when(feedstockBaseConsumptionMapper.toPersistence(servingSize.getFeedstocksBaseConsumption().get(0))).thenReturn(servingSizeSchema.getFeedstocks_base_consumption().get(0));
+        Mockito.when(feedstockBaseConsumptionMapper.toPersistence(servingSize.getFeedstocksBaseConsumption().get(0))).thenReturn(servingSizeSchema.getFeedstockBaseConsumptions().get(0));
     }
 
     @Test

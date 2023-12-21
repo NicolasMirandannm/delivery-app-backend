@@ -14,20 +14,20 @@ public class ServingSizeSchema {
     private String id;
     private String name;
     private String description;
-    private Boolean actived_complements;
-    private Integer amount_of_complements;
-    private String complement_category_id;
-    private List<FeedstockBaseConsumptionSchema> feedstocks_base_consumption;
+    private Boolean activedComplements;
+    private Integer amountOfComplements;
+    private String complementCategoryId;
+    private List<FeedstockBaseConsumptionSchema> feedstockBaseConsumptions;
 
-    public ServingSizeSchema(String id, String name, String description, Boolean actived_complements, Integer amount_of_complements, String complement_category_id, List<FeedstockBaseConsumptionSchema> feedstocks_base_consumption) {
+    public ServingSizeSchema(String id, String name, String description, Boolean activedComplements, Integer amountOfComplements, String complementCategoryId, List<FeedstockBaseConsumptionSchema> feedstockBaseConsumptions) {
         super();
         this.id = id;
         this.name = name;
         this.description = description;
-        this.actived_complements = actived_complements;
-        this.amount_of_complements = amount_of_complements;
-        this.complement_category_id = complement_category_id;
-        this.feedstocks_base_consumption = feedstocks_base_consumption;
+        this.activedComplements = activedComplements;
+        this.amountOfComplements = amountOfComplements;
+        this.complementCategoryId = complementCategoryId;
+        this.feedstockBaseConsumptions = feedstockBaseConsumptions;
     }
 
     @Override
@@ -38,9 +38,9 @@ public class ServingSizeSchema {
         return Objects.equals(id, that.id) &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(description, that.description) &&
-                Objects.equals(actived_complements, that.actived_complements) &&
-                Objects.equals(amount_of_complements, that.amount_of_complements) &&
-                Objects.equals(complement_category_id, that.complement_category_id) &&
-                Objects.equals(feedstocks_base_consumption, that.feedstocks_base_consumption);
+                Objects.equals(activedComplements, that.activedComplements) &&
+                Objects.equals(amountOfComplements, that.amountOfComplements) &&
+                Objects.equals(complementCategoryId, that.complementCategoryId) &&
+                Objects.equals(feedstockBaseConsumptions, that.feedstockBaseConsumptions);
     }
 }

@@ -26,7 +26,7 @@ public class FeedstockBaseConsumptionMapper implements IMapper<FeedstockBaseCons
         InfraException.whenIsNull(feedstockBaseConsumption, "feedstock base consumption entity is null");
 
         var id = feedstockBaseConsumption.getIdValue();
-        var feedstockId = feedstockBaseConsumption.getFeedstockId().value();
+        var feedstockId = feedstockBaseConsumption.getFeedstockId();
         var quantity = feedstockBaseConsumption.getQuantity();
         var measureType = feedstockBaseConsumption.getConsumptionPerUnity().type();
         var amount = feedstockBaseConsumption.getConsumptionPerUnity().amount();

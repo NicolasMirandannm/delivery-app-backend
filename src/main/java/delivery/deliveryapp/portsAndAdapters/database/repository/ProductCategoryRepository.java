@@ -1,13 +1,17 @@
 package delivery.deliveryapp.portsAndAdapters.database.repository;
 
+import delivery.deliveryapp.domain.product.Product;
 import delivery.deliveryapp.domain.productCategory.ProductCategory;
 import delivery.deliveryapp.domain.repository.IProductCategoryRepository;
 import delivery.deliveryapp.portsAndAdapters.database.repository.mapper.IMapper;
 import delivery.deliveryapp.portsAndAdapters.database.schemas.ProductCategorySchema;
+import delivery.deliveryapp.portsAndAdapters.database.schemas.ProductSchema;
 import delivery.deliveryapp.shared.UniqueIdentifier;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Component;
 
@@ -52,5 +56,15 @@ public class ProductCategoryRepository implements IProductCategoryRepository {
     public List<ProductCategory> findAll() {
         var categoriesSchema = mongoTemplate.findAll(ProductCategorySchema.class);
         return categoriesSchema.stream().map(this.mapper::toDomain).toList();
+    }
+
+    @Override
+    public ProductCategory findByName(String name) {
+        var query = new Query();
+        query.addCriteria(Criteria.where("name").is(name));
+        var productCategoryFound = mongoTemplate.findOne(query, ProductCategorySchema.class);
+        return productCategoryFound != null
+                ? mapper.toDomain(productCategoryFound)
+                : null;
     }
 }

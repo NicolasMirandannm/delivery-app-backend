@@ -26,12 +26,12 @@ public class ServingSizeMapper implements IMapper<ServingSize, ServingSizeSchema
         var id = UniqueIdentifier.createFrom(servingSizeSchema.getId());
         var name = servingSizeSchema.getName();
         var description = servingSizeSchema.getDescription();
-        var isActive = servingSizeSchema.getActived_complements();
-        var amountOfComplements = servingSizeSchema.getAmount_of_complements();
-        var complementCategoryId = servingSizeSchema.getComplement_category_id() != null
-                ? UniqueIdentifier.createFrom(servingSizeSchema.getComplement_category_id())
+        var isActive = servingSizeSchema.getActivedComplements();
+        var amountOfComplements = servingSizeSchema.getAmountOfComplements();
+        var complementCategoryId = servingSizeSchema.getComplementCategoryId() != null
+                ? UniqueIdentifier.createFrom(servingSizeSchema.getComplementCategoryId())
                 : null;
-        var feedstocksBaseConsumption = assembleFeedstockBaseConsumptions(servingSizeSchema.getFeedstocks_base_consumption());
+        var feedstocksBaseConsumption = assembleFeedstockBaseConsumptions(servingSizeSchema.getFeedstockBaseConsumptions());
         return ServingSize.create(id, name, description, isActive, amountOfComplements, complementCategoryId, feedstocksBaseConsumption);
     }
 

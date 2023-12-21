@@ -36,4 +36,8 @@ public class FeedstockBaseConsumption extends DomainEntity {
         DomainException.whenIsNull(quantity, "cannot create a feedstock base consumption without a quantity of items for consumption.");
         DomainException.whenIsNull(consumptionPerUnity, "cannot create a feedstock base consumption without consumption per unity.");
     }
+
+    public String getFeedstockId() {
+        return feedstockId != null ? feedstockId.value() : null;
+    }
 }

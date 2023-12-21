@@ -1,5 +1,6 @@
 package delivery.deliveryapp.application.productCategory;
 
+import delivery.deliveryapp.domain.productCategory.ProductCategory;
 import delivery.deliveryapp.domain.repository.IProductCategoryRepository;
 import delivery.deliveryapp.shared.exceptions.ApplicationException;
 import org.junit.jupiter.api.Assertions;
@@ -39,6 +40,19 @@ public class CreateProductCategoryTest {
 
         ApplicationException exception = Assertions.assertThrows(ApplicationException.class, () -> {
             createProductCategory.create(null);
+        });
+
+        Assertions.assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    @Test
+    void should_throw_when_product_category_already_existis() {
+        var productCategory = ProductCategory.createNew(createProductCategoryDto.getCategoryName());
+        Mockito.when(productCategoryRepository.findByName(createProductCategoryDto.getCategoryName())).thenReturn(productCategory);
+        var expectedMessage = "A product category already exists with the same name";
+
+        ApplicationException exception = Assertions.assertThrows(ApplicationException.class, () -> {
+            createProductCategory.create(createProductCategoryDto);
         });
 
         Assertions.assertEquals(expectedMessage, exception.getMessage());

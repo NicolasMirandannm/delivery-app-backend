@@ -7,6 +7,8 @@ import delivery.deliveryapp.portsAndAdapters.database.schemas.ProductSchema;
 import delivery.deliveryapp.shared.UniqueIdentifier;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -49,5 +51,15 @@ public class ProductRepository implements IProductRepository {
     public List<Product> findAll() {
         var products = mongoTemplate.findAll(ProductSchema.class);
         return products.stream().map(mapper::toDomain).toList();
+    }
+
+    @Override
+    public Product findByName(String name) {
+        var query = new Query();
+        query.addCriteria(Criteria.where("name").is(name));
+        var productFound = mongoTemplate.findOne(query, ProductSchema.class);
+        return productFound != null
+                ? mapper.toDomain(productFound)
+                : null;
     }
 }

@@ -1,16 +1,12 @@
 package delivery.deliveryapp.portsAndAdapters.database.repository.mapper.implementations.product;
 
 import delivery.deliveryapp.domain.product.Product;
-import delivery.deliveryapp.domain.product.entities.FeedstockBaseConsumption;
 import delivery.deliveryapp.domain.product.entities.ServingSize;
 import delivery.deliveryapp.portsAndAdapters.database.repository.mapper.IMapper;
-import delivery.deliveryapp.portsAndAdapters.database.schemas.FeedstockBaseConsumptionSchema;
 import delivery.deliveryapp.portsAndAdapters.database.schemas.ProductSchema;
 import delivery.deliveryapp.portsAndAdapters.database.schemas.ServingSizeSchema;
 import delivery.deliveryapp.shared.UniqueIdentifier;
 import delivery.deliveryapp.shared.exceptions.InfraException;
-import delivery.deliveryapp.shared.valueObjects.UnitOfMeasurement;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -28,12 +24,12 @@ public class ProductMapper implements IMapper<Product, ProductSchema> {
 
         var id = UniqueIdentifier.createFrom(productSchema.getId());
         var name = productSchema.getName();
-        var isCustomizable = productSchema.getIs_customizable();
-        var isActived = productSchema.getIs_actived();
-        var productCategoryId = UniqueIdentifier.createFrom(productSchema.getProduct_category_id());
-        var servingSizes = productSchema.getServing_sizes() == null
+        var isCustomizable = productSchema.getIsCustomizable();
+        var isActived = productSchema.getIsActived();
+        var productCategoryId = UniqueIdentifier.createFrom(productSchema.getProductCategoryId());
+        var servingSizes = productSchema.getServingSizes() == null
                 ? new ArrayList<ServingSize>()
-                : productSchema.getServing_sizes().stream().map(this.servingSizeMapper::toDomain).toList();
+                : productSchema.getServingSizes().stream().map(this.servingSizeMapper::toDomain).toList();
 
         return Product.create(id, name, isCustomizable, productCategoryId, servingSizes, isActived);
     }
@@ -46,7 +42,7 @@ public class ProductMapper implements IMapper<Product, ProductSchema> {
         var name = product.getName();
         var isCustomizable = product.getIsCustomizable();
         var isActived = product.getIsActived();
-        var productCategoryId = product.getProductCategoryId().value();
+        var productCategoryId = product.getProductCategoryId();
         var servingSizes = product.getServingSizes() == null
                 ? new ArrayList<ServingSizeSchema>()
                 : product.getServingSizes().stream().map(this.servingSizeMapper::toPersistence).toList();

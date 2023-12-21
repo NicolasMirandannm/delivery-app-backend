@@ -56,4 +56,10 @@ public class Product extends AggregateRoot {
     public Boolean isActive() {
         return this.isActived;
     }
+
+    public String getProductCategoryId() {
+        return this.productCategoryId != null
+                ? productCategoryId.value()
+                : null;
+    }
 }

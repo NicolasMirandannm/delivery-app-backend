@@ -11,6 +11,7 @@ public record UniqueIdentifier(String value) {
     }
 
     public static UniqueIdentifier createFrom(String uuid) {
+        if (uuid == null) return null;
         return new UniqueIdentifier(UniqueIdentifier.generateIdFrom(uuid));
     }
 
@@ -18,7 +19,7 @@ public record UniqueIdentifier(String value) {
         try {
             return UUID.fromString(uuid).toString();
         }catch (Exception ex) {
-            DomainException.throwException("UUID inválido.");
+            DomainException.throwException("UUID -> "+uuid+" <- inválido.");
             return null;
         }
     }

@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  delivery-app-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: delivery-app-server:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+    networks:
+      - delivery-network
+
+  mongodb:
+    container_name: mongodb
+    image: mongodb/mongodb-community-server:6.0-ubi8
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=user123
+      - MONGO_INITDB_ROOT_PASSWORD=123456
+    ports:
+      - "27017:27017"
+    volumes:
+      - type: bind
+        source: docker-dev/database/data
+        target: /data/db
+    networks:
+      - delivery-network
+
+networks:
+  delivery-network:
+    driver: bridge

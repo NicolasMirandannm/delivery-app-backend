@@ -28,7 +28,7 @@ public class ProductCatalogService implements IProductCatalogService {
 
         for (var product : products) {
             if (product.isActive()) {
-                var categoryId = product.getProductCategoryId().value();
+                var categoryId = product.getProductCategoryId();
                 var productItem = new ProductDto();
                 productItem.setId(product.getIdValue());
                 productItem.setName(product.getName());

@@ -48,7 +48,10 @@ public class CreateProductTest {
         var categoryId = UniqueIdentifier.create().value();
         var servingSize = product.getServingSizes().get(0);
         var feedstocksBaseConsumption = List.of(new CreateFeedstockBaseConsumptionDto(UniqueIdentifier.create().value(), 1, MeasurementType.GRAM, 10.0));
-        servingSizeDto = new CreateServingSizeDto(servingSize.getName(),servingSize.getDescription(),servingSize.getActivedComplements(),servingSize.getAmountOfComplements(),servingSize.getIdValue(), feedstocksBaseConsumption);
+        servingSizeDto = new CreateServingSizeDto(
+                servingSize.getName(),servingSize.getDescription(),servingSize.getActivedComplements(),
+                servingSize.getAmountOfComplements(), servingSize.getPrice(), servingSize.getIdValue(), feedstocksBaseConsumption
+        );
         createProductDto = new CreateProductDto("Mongo Ice cream", categoryId, List.of(servingSizeDto));
     }
 

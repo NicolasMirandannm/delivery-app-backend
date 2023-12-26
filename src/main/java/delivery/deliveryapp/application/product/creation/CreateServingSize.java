@@ -26,10 +26,11 @@ public class CreateServingSize implements CreationService<CreateServingSizeDto, 
         var description = servingSizeDto.getDescription();
         var complementsIsActive = servingSizeDto.getComplementsIsActive();
         var amountOfComplements = servingSizeDto.getAmountOfComplements();
+        var price = servingSizeDto.getPrice();
         var complementTypeId = UniqueIdentifier.createFrom(servingSizeDto.getComplementTypeId());
         var feedstocksBaseConsumption = servingSizeDto.getFeedstocksBaseConsumptions()
                 .stream().map(createFeedstockBaseConsumption::create).collect(Collectors.toList());
 
-        return ServingSize.createNew(servingSizeName, description, complementsIsActive, amountOfComplements, complementTypeId, feedstocksBaseConsumption);
+        return ServingSize.createNew(servingSizeName, description, complementsIsActive, amountOfComplements, price, complementTypeId, feedstocksBaseConsumption);
     }
 }

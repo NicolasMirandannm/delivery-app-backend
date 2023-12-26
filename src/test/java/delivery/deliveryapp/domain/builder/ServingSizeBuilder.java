@@ -15,6 +15,7 @@ public final class ServingSizeBuilder {
     private String description;
     private Boolean activedComplements = false;
     private Integer amountOfComplements;
+    private Double price;
     private List<FeedstockBaseConsumption> feedstocksBaseConsumption;
     private UniqueIdentifier id;
 
@@ -63,7 +64,7 @@ public final class ServingSizeBuilder {
     }
 
     public ServingSize build() {
-        ServingSize servingSize = ServingSize.create(id, name, description, activedComplements, amountOfComplements, complementCategoryId, feedstocksBaseConsumption);
+        ServingSize servingSize = ServingSize.create(id, name, description, activedComplements, amountOfComplements, price, complementCategoryId, feedstocksBaseConsumption);
         servingSize.setComplementCategoryId(complementCategoryId);
         return servingSize;
     }

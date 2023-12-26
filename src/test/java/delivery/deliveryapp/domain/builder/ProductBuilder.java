@@ -42,14 +42,14 @@ public class ProductBuilder {
 
     public ProductBuilder withServingSizes() {
         var feedstocksBaseConsumption = List.of(FeedstockBaseConsumption.createNew(UniqueIdentifier.create(), 1, UnitOfMeasurement.create(MeasurementType.GRAM, 10.0)));
-        var servingSize = ServingSize.create(UniqueIdentifier.create(), "Pequeno", "tamanho pequeno", true, 1, UniqueIdentifier.create(), feedstocksBaseConsumption);
+        var servingSize = ServingSize.create(UniqueIdentifier.create(), "Pequeno", "tamanho pequeno", true, 1, 9.99, UniqueIdentifier.create(), feedstocksBaseConsumption);
         servingSizes = List.of(servingSize);
         return this;
     }
 
     public ProductBuilder withServingSizeInative() {
         var feedstocksBaseConsumption = List.of(FeedstockBaseConsumption.createNew(UniqueIdentifier.create(), 1, UnitOfMeasurement.create(MeasurementType.GRAM, 10.0)));
-        var servingSize = ServingSize.create(UniqueIdentifier.create(), "Pequeno", "tamanho pequeno", false, 1, null, feedstocksBaseConsumption);
+        var servingSize = ServingSize.create(UniqueIdentifier.create(), "Pequeno", "tamanho pequeno", false, 1,9.99, null, feedstocksBaseConsumption);
         servingSizes = List.of(servingSize);
         return this;
     }

@@ -37,6 +37,7 @@ public class CreateServingSizeTest {
                 "tamanho pequeno",
                 false,
                 0,
+                9.99,
                 null,
                 List.of(feedstocksBaseConsumptionDto)
         );

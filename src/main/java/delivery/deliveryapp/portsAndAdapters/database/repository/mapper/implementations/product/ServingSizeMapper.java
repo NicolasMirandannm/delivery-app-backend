@@ -28,11 +28,12 @@ public class ServingSizeMapper implements IMapper<ServingSize, ServingSizeSchema
         var description = servingSizeSchema.getDescription();
         var isActive = servingSizeSchema.getActivedComplements();
         var amountOfComplements = servingSizeSchema.getAmountOfComplements();
+        var price = servingSizeSchema.getPrice();
         var complementCategoryId = servingSizeSchema.getComplementCategoryId() != null
                 ? UniqueIdentifier.createFrom(servingSizeSchema.getComplementCategoryId())
                 : null;
         var feedstocksBaseConsumption = assembleFeedstockBaseConsumptions(servingSizeSchema.getFeedstockBaseConsumptions());
-        return ServingSize.create(id, name, description, isActive, amountOfComplements, complementCategoryId, feedstocksBaseConsumption);
+        return ServingSize.create(id, name, description, isActive, amountOfComplements, price, complementCategoryId, feedstocksBaseConsumption);
     }
 
     @Override
@@ -44,9 +45,10 @@ public class ServingSizeMapper implements IMapper<ServingSize, ServingSizeSchema
         var description = servingSize.getDescription();
         var activedComplements = servingSize.getActivedComplements();
         var amountOfComplements = servingSize.getAmountOfComplements();
+        var price = servingSize.getPrice();
         var complementCategoryId = servingSize.getComplementCategoryId();
         var feedstockBaseConsumption = assembleFeedstockBaseConsumptionsSchema(servingSize.getFeedstocksBaseConsumption());
-        return new ServingSizeSchema(id, name, description, activedComplements, amountOfComplements, complementCategoryId, feedstockBaseConsumption);
+        return new ServingSizeSchema(id, name, description, activedComplements, amountOfComplements, price, complementCategoryId, feedstockBaseConsumption);
     }
 
     private List<FeedstockBaseConsumption> assembleFeedstockBaseConsumptions(List<FeedstockBaseConsumptionSchema> feedstockBaseConsumptionSchemas) {

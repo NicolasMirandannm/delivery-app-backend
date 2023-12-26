@@ -52,7 +52,8 @@ public class CreateProductTest {
                 servingSize.getName(),servingSize.getDescription(),servingSize.getActivedComplements(),
                 servingSize.getAmountOfComplements(), servingSize.getPrice(), servingSize.getIdValue(), feedstocksBaseConsumption
         );
-        createProductDto = new CreateProductDto("Mongo Ice cream", categoryId, List.of(servingSizeDto));
+        createProductDto = new CreateProductDto("Mongo Ice cream", "product description", categoryId, List.of(servingSizeDto));
+        createProductDto.setImageURI("uri image");
     }
 
     @Test

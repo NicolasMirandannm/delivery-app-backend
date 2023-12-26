@@ -24,6 +24,8 @@ public class ProductMapper implements IMapper<Product, ProductSchema> {
 
         var id = UniqueIdentifier.createFrom(productSchema.getId());
         var name = productSchema.getName();
+        var description = productSchema.getDescription();
+        var imageURI = productSchema.getImageURI();
         var isCustomizable = productSchema.getIsCustomizable();
         var isActived = productSchema.getIsActived();
         var productCategoryId = UniqueIdentifier.createFrom(productSchema.getProductCategoryId());
@@ -31,7 +33,7 @@ public class ProductMapper implements IMapper<Product, ProductSchema> {
                 ? new ArrayList<ServingSize>()
                 : productSchema.getServingSizes().stream().map(this.servingSizeMapper::toDomain).toList();
 
-        return Product.create(id, name, isCustomizable, productCategoryId, servingSizes, isActived);
+        return Product.create(id, name, description, imageURI, isCustomizable, productCategoryId, servingSizes, isActived);
     }
 
     @Override
@@ -40,6 +42,8 @@ public class ProductMapper implements IMapper<Product, ProductSchema> {
 
         var id = product.getIdValue();
         var name = product.getName();
+        var description = product.getDescription();
+        var imageURI = product.getImageURI();
         var isCustomizable = product.getIsCustomizable();
         var isActived = product.getIsActived();
         var productCategoryId = product.getProductCategoryId();
@@ -47,6 +51,6 @@ public class ProductMapper implements IMapper<Product, ProductSchema> {
                 ? new ArrayList<ServingSizeSchema>()
                 : product.getServingSizes().stream().map(this.servingSizeMapper::toPersistence).toList();
 
-        return new ProductSchema(id, name, isCustomizable, isActived, productCategoryId, servingSizes);
+        return new ProductSchema(id, name, description, imageURI, isCustomizable, isActived, productCategoryId, servingSizes);
     }
 }

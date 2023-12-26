@@ -7,8 +7,8 @@ import delivery.deliveryapp.domain.productCategory.ProductCategory;
 import delivery.deliveryapp.domain.repository.IProductCategoryRepository;
 import delivery.deliveryapp.domain.repository.IProductRepository;
 import delivery.deliveryapp.domain.services.productCatalog.IProductCatalogService;
-import delivery.deliveryapp.domain.services.productCatalog.dto.ProductCatalogItemDto;
-import delivery.deliveryapp.domain.services.productCatalog.dto.ProductDto;
+import delivery.deliveryapp.domain.services.productCatalog.dto.ProductCatalogItem;
+import delivery.deliveryapp.domain.services.productCatalog.dto.ProductItem;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,7 +34,7 @@ public class ProductCatalogTest {
 
     private List<ProductCategory> categories;
     private List<Product> products;
-    private List<ProductCatalogItemDto> catalogItems;
+    private List<ProductCatalogItem> catalogItems;
 
     @BeforeEach
     void setup() {
@@ -51,8 +51,8 @@ public class ProductCatalogTest {
                 .build();
         categories = List.of(category);
         products = List.of(product);
-        var catalogItem = new ProductCatalogItemDto();
-        var productItem = new ProductDto();
+        var catalogItem = new ProductCatalogItem();
+        var productItem = new ProductItem();
         productItem.setName(productName);
         catalogItem.setCategoryName(categoryName);
         catalogItem.setProducts(List.of(productItem));

@@ -12,6 +12,8 @@ import java.util.List;
 public class ProductBuilder {
     private UniqueIdentifier productCategoryId;
     private String name;
+    private String description;
+    private String imageURI;
     private Boolean isCustomizable;
     private List<ServingSize> servingSizes;
     private UniqueIdentifier id;
@@ -74,10 +76,12 @@ public class ProductBuilder {
             isCustomizable = true;
         if (productCategoryId == null)
             productCategoryId = UniqueIdentifier.create();
-        return Product.create(id, name, isCustomizable, productCategoryId, servingSizes, isActive);
+        description = "product description";
+        imageURI = "path/image";
+        return Product.create(id, name, description, imageURI, isCustomizable, productCategoryId, servingSizes, isActive);
     }
 
     public Product estrictedBuild() {
-        return Product.create(id, name, isCustomizable, productCategoryId, servingSizes, isActive);
+        return Product.create(id, name, description, imageURI, isCustomizable, productCategoryId, servingSizes, isActive);
     }
 }

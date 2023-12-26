@@ -15,33 +15,39 @@ import java.util.List;
 public class Product extends AggregateRoot {
 
     private String name;
+    private String description;
+    private String imageURI;
     private Boolean isCustomizable;
     private Boolean isActived;
     private UniqueIdentifier productCategoryId;
     private List<ServingSize> servingSizes;
 
-    private Product(UniqueIdentifier id, String name, Boolean isCustomizable, UniqueIdentifier categoryId, List<ServingSize> servingSizes, Boolean isActived) {
+    private Product(UniqueIdentifier id, String name, String description, String imageURI, Boolean isCustomizable, UniqueIdentifier categoryId, List<ServingSize> servingSizes, Boolean isActived) {
         super(id);
         this.name = name;
+        this.description = description;
+        this.imageURI = imageURI;
         this.isCustomizable = isCustomizable;
         this.productCategoryId = categoryId;
         this.servingSizes = servingSizes;
         this.isActived = isActived;
     }
 
-    public static Product create(UniqueIdentifier id, String name, Boolean isCustomizable, UniqueIdentifier categoryId, List<ServingSize> servingSizes, Boolean isActived) {
-        return new Product(id, name, isCustomizable, categoryId, servingSizes, isActived);
+    public static Product create(UniqueIdentifier id, String name, String description, String imageURI, Boolean isCustomizable, UniqueIdentifier categoryId, List<ServingSize> servingSizes, Boolean isActived) {
+        return new Product(id, name, description, imageURI, isCustomizable, categoryId, servingSizes, isActived);
     }
 
-    public static Product createNew(String name, UniqueIdentifier categoryId) {
+    public static Product createNew(String name, String description, String imageURI, UniqueIdentifier categoryId) {
         DomainException.whenIsNull(name, "cannot create a new product with empty name.");
+        DomainException.whenIsNull(description, "cannot create a new product with empty description.");
+        DomainException.whenIsNull(imageURI, "cannot create a new product with empty image path.");
         DomainException.whenIsNull(categoryId, "cannot create a new product without a product category identifier.");
 
         var id = UniqueIdentifier.create();
         var isCustomizable = true;
         var isActive = true;
         var servingSizes = new ArrayList<ServingSize>();
-        return Product.create(id,name, isCustomizable, categoryId, servingSizes, isActive);
+        return Product.create(id,name, description, imageURI, isCustomizable, categoryId, servingSizes, isActive);
     }
 
     public void addAServingSize(ServingSize servingSize) {

@@ -3,7 +3,7 @@ package delivery.deliveryapp.application.productCatalog;
 import delivery.deliveryapp.domain.repository.IProductCategoryRepository;
 import delivery.deliveryapp.domain.repository.IProductRepository;
 import delivery.deliveryapp.domain.services.productCatalog.IProductCatalogService;
-import delivery.deliveryapp.domain.services.productCatalog.dto.ProductCatalogItemDto;
+import delivery.deliveryapp.domain.services.productCatalog.dto.ProductCatalogItem;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ public class ProductCatalog implements IProductCatalog {
     private final IProductRepository productRepository;
     private final IProductCatalogService productCatalogService;
 
-    public List<ProductCatalogItemDto> show() {
+    public List<ProductCatalogItem> show() {
         var categories = productCategoryRepository.findAll();
         var products = productRepository.findAll();
         if (categories == null || products == null)

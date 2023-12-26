@@ -15,6 +15,8 @@ import java.util.List;
 public class ProductTest {
 
     private String name;
+    private String description;
+    private String imageURI;
     private Boolean isCustomizable;
     private UniqueIdentifier categoryId;
     private List<ServingSize> servingSizes;
@@ -25,28 +27,25 @@ public class ProductTest {
     @BeforeEach
     void setup() {
         this.name = "Ice cream";
+        this.description = "ice cream description";
+        this.imageURI = "/path/image";
         this.isCustomizable = true;
         this.categoryId = UniqueIdentifier.create();
         this.servingSizes = new ArrayList<ServingSize>();
         this.isActive = true;
 
-        this.product = Product.create(UniqueIdentifier.create(), name, isCustomizable, categoryId, servingSizes, isActive);
+        this.product = Product.create(UniqueIdentifier.create(), name, description, imageURI, isCustomizable, categoryId, servingSizes, isActive);
     }
 
     @Test
     void should_create_a_product() {
-        var productCreated = Product.create(UniqueIdentifier.create(), name, isCustomizable, categoryId, servingSizes, isActive);
+        var productCreated = Product.create(UniqueIdentifier.create(), name, description, imageURI, isCustomizable, categoryId, servingSizes, isActive);
 
         Assertions.assertNotNull(productCreated.getId());
     }
 
     @Test
     void should_add_a_servingSize_in_product() {
-        var name = "pequeno";
-        var description = "200 ML";
-        var activedComplements = true;
-        var amountOfComplements = 4;
-        var complementTypeId = UniqueIdentifier.create();
         var servingSize = ServingSizeBuilder.aServingSize().build();
 
         this.product.addAServingSize(servingSize);
@@ -67,7 +66,7 @@ public class ProductTest {
 
     @Test
     void should_create_a_new_product() {
-        var newProductCreated = Product.createNew(name, categoryId);
+        var newProductCreated = Product.createNew(name, description, imageURI, categoryId);
 
         Assertions.assertNotNull(newProductCreated);
         Assertions.assertTrue(newProductCreated.getIsCustomizable());
@@ -80,7 +79,7 @@ public class ProductTest {
         var expectedErrorMessage = "cannot create a new product with empty name.";
 
         DomainException exception = Assertions.assertThrows(DomainException.class, () -> {
-            Product.createNew(null, categoryId);
+            Product.createNew(null, description, imageURI, categoryId);
         });
 
         Assertions.assertEquals(expectedErrorMessage, exception.getMessage());
@@ -91,7 +90,29 @@ public class ProductTest {
         var expectedErrorMessage = "cannot create a new product without a product category identifier.";
 
         DomainException exception = Assertions.assertThrows(DomainException.class, () -> {
-            Product.createNew(name, null);
+            Product.createNew(name, description, imageURI, null);
+        });
+
+        Assertions.assertEquals(expectedErrorMessage, exception.getMessage());
+    }
+
+    @Test
+    void should_throw_an_exception_when_description_is_null_on_new_creation() {
+        var expectedErrorMessage = "cannot create a new product with empty description.";
+
+        DomainException exception = Assertions.assertThrows(DomainException.class, () -> {
+            Product.createNew(name, null, imageURI, categoryId);
+        });
+
+        Assertions.assertEquals(expectedErrorMessage, exception.getMessage());
+    }
+
+    @Test
+    void should_throw_an_exception_when_imageURI_is_null_on_new_creation() {
+        var expectedErrorMessage = "cannot create a new product with empty image path.";
+
+        DomainException exception = Assertions.assertThrows(DomainException.class, () -> {
+            Product.createNew(name, description, null, categoryId);
         });
 
         Assertions.assertEquals(expectedErrorMessage, exception.getMessage());

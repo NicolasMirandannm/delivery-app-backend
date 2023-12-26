@@ -13,15 +13,19 @@ import java.util.Objects;
 public class ProductSchema {
     private String id;
     private String name;
+    private String description;
+    private String imageURI;
     private Boolean isCustomizable;
     private Boolean isActived;
     private String productCategoryId;
     private List<ServingSizeSchema> servingSizes;
 
-    public ProductSchema(String id, String name, Boolean isCustomizable, Boolean isActived, String productCategoryId, List<ServingSizeSchema> servingSizes) {
+    public ProductSchema(String id, String name, String description, String imageURI, Boolean isCustomizable, Boolean isActived, String productCategoryId, List<ServingSizeSchema> servingSizes) {
         super();
         this.id = id;
         this.name = name;
+        this.description = description;
+        this.imageURI = imageURI;
         this.isCustomizable = isCustomizable;
         this.isActived = isActived;
         this.productCategoryId = productCategoryId;
@@ -33,7 +37,14 @@ public class ProductSchema {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductSchema that = (ProductSchema) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(isCustomizable, that.isCustomizable) && Objects.equals(isActived, that.isActived) && Objects.equals(productCategoryId, that.productCategoryId) && Objects.equals(servingSizes, that.servingSizes);
+        return Objects.equals(id, that.id) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(imageURI, that.imageURI) &&
+                Objects.equals(isCustomizable, that.isCustomizable) &&
+                Objects.equals(isActived, that.isActived) &&
+                Objects.equals(productCategoryId, that.productCategoryId) &&
+                Objects.equals(servingSizes, that.servingSizes);
     }
 
 }

@@ -17,6 +17,10 @@ public class InfraException extends RuntimeException {
 
     public static void whenIsNull(Object object, String message) {
         if (object == null)
-            throw new InfraException(message);
+            throwException(message);
+    }
+
+    public static void throwException(String message) {
+        throw new InfraException(message);
     }
 }

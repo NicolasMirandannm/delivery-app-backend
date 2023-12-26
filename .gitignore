@@ -34,3 +34,6 @@ build/
 
 ### database docker data ###
 docker-dev/database/data/*
+
+### application data ###
+images

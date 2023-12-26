@@ -38,11 +38,13 @@ public class ProductMapperTest {
 
         var productId = product.getIdValue();
         var productName = product.getName();
+        var productDescription = product.getDescription();
+        var productImageURI = product.getImageURI();
         var productIsCustomizable = product.getIsCustomizable();
         var productIsActived = product.getIsActived();
         var productCategoryId = product.getProductCategoryId();
 
-        productSchema = new ProductSchema(productId, productName, productIsCustomizable, productIsActived, productCategoryId, new ArrayList<>());
+        productSchema = new ProductSchema(productId, productName, productDescription, productImageURI, productIsCustomizable, productIsActived, productCategoryId, new ArrayList<>());
 
     }
 

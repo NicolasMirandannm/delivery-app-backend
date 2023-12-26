@@ -12,6 +12,8 @@ services:
       - mongodb
     networks:
       - delivery-network
+#    volumes:
+#      - delivery-app:/delivery-app //todo achar uma forma de persistir as imagens salvas aqui no ./images
 
   mongodb:
     container_name: mongodb
@@ -31,3 +33,6 @@ services:
 networks:
   delivery-network:
     driver: bridge
+
+#volumes:
+#  delivery-app:

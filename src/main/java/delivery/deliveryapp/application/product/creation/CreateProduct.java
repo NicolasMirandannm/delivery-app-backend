@@ -27,7 +27,10 @@ public class CreateProduct implements CreationService<CreateProductDto, Product>
 
         var productCategoryId = UniqueIdentifier.createFrom(createProductDto.getProductCategoryId());
         var name = createProductDto.getName();
-        var productCreated = Product.createNew(name, productCategoryId);
+        var description = createProductDto.getDescription();
+        var imageURI = createProductDto.getImageURI();
+
+        var productCreated = Product.createNew(name, description, imageURI, productCategoryId);
 
         for (var servingSizeDto : createProductDto.getServingSizes()) {
             var servingSize = createServingSizeService.create(servingSizeDto);

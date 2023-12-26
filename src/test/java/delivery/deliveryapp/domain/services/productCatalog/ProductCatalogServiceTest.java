@@ -4,6 +4,9 @@ import delivery.deliveryapp.domain.builder.ProductBuilder;
 import delivery.deliveryapp.domain.builder.ProductCategoryBuilder;
 import delivery.deliveryapp.domain.product.Product;
 import delivery.deliveryapp.domain.productCategory.ProductCategory;
+import delivery.deliveryapp.domain.services.productCatalog.dto.ProductCatalogItem;
+import delivery.deliveryapp.domain.services.productCatalog.dto.ProductItem;
+import delivery.deliveryapp.domain.services.productCatalog.dto.ServingSizeItem;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,6 +42,7 @@ public class ProductCatalogServiceTest {
                 .withIsCustomizable(false)
                 .withName("Chocolate Ice cream")
                 .withProductCategoryId(category.getId())
+                .withServingSizes()
                 .build();
         productCategories = List.of(category, inactiveCategory);
         products = List.of(product);
@@ -46,12 +50,28 @@ public class ProductCatalogServiceTest {
 
     @Test
     void should_load_category_of_products() {
-        var expectedCatalogName = "Ice creams";
+        var servingSize = products.get(0).getServingSizes().get(0);
+        var product = products.get(0);
+        var servingSizeItem = new ServingSizeItem(
+            servingSize.getName(),
+            servingSize.getPrice()
+        );
+        var productItem = new ProductItem(
+            product.getIdValue(),
+            product.getName(),
+            product.getDescription(),
+            product.getImageURI(),
+            List.of(servingSizeItem)
+        );
+        var productCatalogExpected = List.of(new ProductCatalogItem(
+            productCategories.get(0).getIdValue(),
+            productCategories.get(0).getCategoryName(),
+            List.of(productItem)
+        ));
 
-        var catalogs = productCatalogService.assemble(productCategories, products);
-        var categoryName = catalogs.get(0).getCategoryName();
+        var catalog = productCatalogService.assemble(productCategories, products);
 
-        Assertions.assertEquals(expectedCatalogName, categoryName);
+        Assertions.assertEquals(productCatalogExpected, catalog);
     }
 
     @Test

@@ -1,7 +1,7 @@
 package delivery.deliveryapp.portsAndAdapters.rest.products;
 
 import delivery.deliveryapp.application.productCatalog.IProductCatalog;
-import delivery.deliveryapp.domain.services.productCatalog.dto.ProductCatalogItemDto;
+import delivery.deliveryapp.domain.services.productCatalog.dto.ProductCatalogItem;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ public class ProductCatalogRest {
     private final IProductCatalog productCatalog;
 
     @GetMapping
-    public ResponseEntity<List<ProductCatalogItemDto>> show() {
+    public ResponseEntity<List<ProductCatalogItem>> show() {
         return ResponseEntity.ok(productCatalog.show());
     }
 }

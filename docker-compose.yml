@@ -12,8 +12,8 @@ services:
       - mongodb
     networks:
       - delivery-network
-#    volumes:
-#      - delivery-app:/delivery-app //todo achar uma forma de persistir as imagens salvas aqui no ./images
+    volumes:
+      - images-vol:/app/images
 
   mongodb:
     container_name: mongodb
@@ -24,15 +24,16 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - type: bind
-        source: docker-dev/database/data
+      - type: volume
+        source: database-vol
         target: /data/db
     networks:
       - delivery-network
 
+volumes:
+  database-vol:
+  images-vol:
+
 networks:
   delivery-network:
     driver: bridge
-
-#volumes:
-#  delivery-app:

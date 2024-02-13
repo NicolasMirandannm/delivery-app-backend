@@ -15,20 +15,18 @@ public class ServingSizeSchema {
     private String name;
     private String description;
     private Boolean activedComplements;
-    private Integer amountOfComplements;
     private Double price;
-    private String complementCategoryId;
+    private List<ComplementCategorySchema> complementCategories;
     private List<FeedstockBaseConsumptionSchema> feedstockBaseConsumptions;
 
-    public ServingSizeSchema(String id, String name, String description, Boolean activedComplements, Integer amountOfComplements, Double price, String complementCategoryId, List<FeedstockBaseConsumptionSchema> feedstockBaseConsumptions) {
+    public ServingSizeSchema(String id, String name, String description, Boolean activedComplements, Double price, List<ComplementCategorySchema> complementCategories, List<FeedstockBaseConsumptionSchema> feedstockBaseConsumptions) {
         super();
         this.id = id;
         this.name = name;
         this.description = description;
         this.activedComplements = activedComplements;
-        this.amountOfComplements = amountOfComplements;
         this.price = price;
-        this.complementCategoryId = complementCategoryId;
+        this.complementCategories = complementCategories;
         this.feedstockBaseConsumptions = feedstockBaseConsumptions;
     }
 
@@ -41,9 +39,8 @@ public class ServingSizeSchema {
                 Objects.equals(name, that.name) &&
                 Objects.equals(description, that.description) &&
                 Objects.equals(activedComplements, that.activedComplements) &&
-                Objects.equals(amountOfComplements, that.amountOfComplements) &&
                 Objects.equals(price, that.price) &&
-                Objects.equals(complementCategoryId, that.complementCategoryId) &&
+                Objects.equals(complementCategories, that.complementCategories) &&
                 Objects.equals(feedstockBaseConsumptions, that.feedstockBaseConsumptions);
     }
 }

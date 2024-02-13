@@ -1,6 +1,6 @@
 package delivery.deliveryapp.domain.product.entities;
 
-import delivery.deliveryapp.domain.complementCategory.enums.MeasurementType;
+import delivery.deliveryapp.domain.enums.MeasurementType;
 import delivery.deliveryapp.shared.UniqueIdentifier;
 import delivery.deliveryapp.shared.exceptions.DomainException;
 import delivery.deliveryapp.shared.valueObjects.UnitOfMeasurement;
@@ -25,7 +25,7 @@ public class FeedstockBaseConsumptionTest {
 
     @Test
     void should_create_a_feedstock_base_comsumption_entity() {
-        var feedstockBaseConsumption = FeedstockBaseConsumption.create(id, feedstockId, quantity, consumptionPerUnity);
+        var feedstockBaseConsumption = ProductFeedstockBaseConsumption.create(id, feedstockId, quantity, consumptionPerUnity);
 
         Assertions.assertNotNull(feedstockBaseConsumption);
     }
@@ -35,7 +35,7 @@ public class FeedstockBaseConsumptionTest {
         var expectedMessage = "cannot create a feedstock base consumption without id.";
 
         DomainException exception = Assertions.assertThrows(DomainException.class, () -> {
-            FeedstockBaseConsumption.create(null, feedstockId, quantity, consumptionPerUnity);
+            ProductFeedstockBaseConsumption.create(null, feedstockId, quantity, consumptionPerUnity);
         });
 
         Assertions.assertEquals(expectedMessage, exception.getMessage());
@@ -46,7 +46,7 @@ public class FeedstockBaseConsumptionTest {
         var expectedMessage = "cannot create a feedstock base consumption without refence of the feedstock.";
 
         DomainException exception = Assertions.assertThrows(DomainException.class, () -> {
-            FeedstockBaseConsumption.create(id, null, quantity, consumptionPerUnity);
+            ProductFeedstockBaseConsumption.create(id, null, quantity, consumptionPerUnity);
         });
 
         Assertions.assertEquals(expectedMessage, exception.getMessage());
@@ -57,7 +57,7 @@ public class FeedstockBaseConsumptionTest {
         var expectedMessage = "cannot create a feedstock base consumption without a quantity of items for consumption.";
 
         DomainException exception = Assertions.assertThrows(DomainException.class, () -> {
-            FeedstockBaseConsumption.create(id, feedstockId, null, consumptionPerUnity);
+            ProductFeedstockBaseConsumption.create(id, feedstockId, null, consumptionPerUnity);
         });
 
         Assertions.assertEquals(expectedMessage, exception.getMessage());
@@ -68,7 +68,7 @@ public class FeedstockBaseConsumptionTest {
         var expectedMessage = "cannot create a feedstock base consumption without consumption per unity.";
 
         DomainException exception = Assertions.assertThrows(DomainException.class, () -> {
-            FeedstockBaseConsumption.create(id, feedstockId, quantity, null);
+            ProductFeedstockBaseConsumption.create(id, feedstockId, quantity, null);
         });
 
         Assertions.assertEquals(expectedMessage, exception.getMessage());

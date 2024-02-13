@@ -1,4 +1,4 @@
-package delivery.deliveryapp.domain.complementCategory.entities;
+package delivery.deliveryapp.domain.product.entities;
 
 import delivery.deliveryapp.shared.valueObjects.UnitOfMeasurement;
 import delivery.deliveryapp.shared.UniqueIdentifier;

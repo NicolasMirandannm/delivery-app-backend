@@ -1,7 +1,5 @@
 package delivery.deliveryapp.application.productCategory;
 
-import delivery.deliveryapp.application.product.creation.dtos.CreateFeedstockBaseConsumptionDto;
-import delivery.deliveryapp.domain.product.entities.FeedstockBaseConsumption;
 import delivery.deliveryapp.domain.productCategory.ProductCategory;
 import delivery.deliveryapp.domain.repository.IProductCategoryRepository;
 import delivery.deliveryapp.shared.exceptions.ApplicationException;

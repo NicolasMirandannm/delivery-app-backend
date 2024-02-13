@@ -1,6 +1,6 @@
 package delivery.deliveryapp.portsAndAdapters.database.schemas;
 
-import delivery.deliveryapp.domain.complementCategory.enums.MeasurementType;
+import delivery.deliveryapp.domain.enums.MeasurementType;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;

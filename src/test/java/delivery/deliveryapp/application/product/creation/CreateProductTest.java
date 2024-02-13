@@ -1,10 +1,11 @@
 package delivery.deliveryapp.application.product.creation;
 
+import delivery.deliveryapp.application.product.creation.dtos.CreateComplementCategoryDto;
 import delivery.deliveryapp.application.product.creation.dtos.CreateFeedstockBaseConsumptionDto;
 import delivery.deliveryapp.application.product.creation.dtos.CreateProductDto;
 import delivery.deliveryapp.application.product.creation.dtos.CreateServingSizeDto;
 import delivery.deliveryapp.domain.builder.ProductBuilder;
-import delivery.deliveryapp.domain.complementCategory.enums.MeasurementType;
+import delivery.deliveryapp.domain.enums.MeasurementType;
 import delivery.deliveryapp.domain.product.Product;
 import delivery.deliveryapp.domain.product.entities.ServingSize;
 import delivery.deliveryapp.domain.repository.IProductRepository;
@@ -19,6 +20,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -50,7 +52,7 @@ public class CreateProductTest {
         var feedstocksBaseConsumption = List.of(new CreateFeedstockBaseConsumptionDto(UniqueIdentifier.create().value(), 1, MeasurementType.GRAM, 10.0));
         servingSizeDto = new CreateServingSizeDto(
                 servingSize.getName(),servingSize.getDescription(),servingSize.getActivedComplements(),
-                servingSize.getAmountOfComplements(), servingSize.getPrice(), servingSize.getIdValue(), feedstocksBaseConsumption
+                servingSize.getPrice(), new ArrayList<CreateComplementCategoryDto>(), feedstocksBaseConsumption
         );
         createProductDto = new CreateProductDto("Mongo Ice cream", "product description", categoryId, List.of(servingSizeDto));
         createProductDto.setImageURI("uri image");

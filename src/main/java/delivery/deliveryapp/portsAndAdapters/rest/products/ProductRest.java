@@ -6,7 +6,6 @@ import delivery.deliveryapp.domain.product.Product;
 import delivery.deliveryapp.portsAndAdapters.filesystem.StorageService;
 import delivery.deliveryapp.shared.exceptions.InfraException;
 import delivery.deliveryapp.shared.service.CreationService;
-import delivery.deliveryapp.shared.service.FindService;
 import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,6 @@ public class ProductRest {
     private final CreationService<CreateProductDto, Product> createProduct;
     private final StorageService storageService;
     private final ObjectMapper mapper = new ObjectMapper();
-    private final FindService<Product> findProductService;
 
     @PostMapping
     public ResponseEntity<String> create(
@@ -43,6 +41,6 @@ public class ProductRest {
 
     @GetMapping
     public ResponseEntity<Product> findById(@PathParam("id") String id) {
-        return ResponseEntity.ok(findProductService.findBy(id));
+        return null;
     }
 }

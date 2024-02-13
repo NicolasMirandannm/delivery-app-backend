@@ -1,10 +1,11 @@
 package delivery.deliveryapp.portsAndAdapters.database.mapper.product;
 
-import delivery.deliveryapp.domain.complementCategory.enums.MeasurementType;
-import delivery.deliveryapp.domain.product.entities.FeedstockBaseConsumption;
+import delivery.deliveryapp.domain.enums.MeasurementType;
+import delivery.deliveryapp.domain.product.entities.ProductFeedstockBaseConsumption;
 import delivery.deliveryapp.domain.product.entities.ServingSize;
-import delivery.deliveryapp.portsAndAdapters.database.repository.mapper.IMapper;
+import delivery.deliveryapp.portsAndAdapters.database.repository.mapper.Mapper;
 import delivery.deliveryapp.portsAndAdapters.database.repository.mapper.implementations.product.ServingSizeMapper;
+import delivery.deliveryapp.portsAndAdapters.database.schemas.ComplementCategorySchema;
 import delivery.deliveryapp.portsAndAdapters.database.schemas.FeedstockBaseConsumptionSchema;
 import delivery.deliveryapp.portsAndAdapters.database.schemas.ServingSizeSchema;
 import delivery.deliveryapp.domain.builder.ServingSizeBuilder;
@@ -17,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ServingSizeMapperTest {
@@ -25,7 +27,7 @@ public class ServingSizeMapperTest {
     private ServingSizeMapper servingSizeMapper;
 
     @Mock
-    private IMapper<FeedstockBaseConsumption, FeedstockBaseConsumptionSchema> feedstockBaseConsumptionMapper;
+    private Mapper<ProductFeedstockBaseConsumption, FeedstockBaseConsumptionSchema> feedstockBaseConsumptionMapper;
 
     private ServingSize servingSize;
     private ServingSizeSchema servingSizeSchema;
@@ -44,11 +46,10 @@ public class ServingSizeMapperTest {
         var sizeName = servingSize.getName();
         var sizeDescription = servingSize.getDescription();
         var sizeHasActivedComplements = servingSize.getActivedComplements();
-        var sizeAmountOfComplements = servingSize.getAmountOfComplements();
         var sizePrice = servingSize.getPrice();
-        var sizeComplementCategoryId = servingSize.getComplementCategoryId();
+        var complementCategories = new ArrayList<ComplementCategorySchema>();
         var feedstockBaseConsumption = new FeedstockBaseConsumptionSchema("id", "feedstockId", 1, MeasurementType.GRAM, 10.0);
-        servingSizeSchema = new ServingSizeSchema(sizeId,sizeName,sizeDescription,sizeHasActivedComplements,sizeAmountOfComplements, sizePrice, sizeComplementCategoryId, List.of(feedstockBaseConsumption));
+        servingSizeSchema = new ServingSizeSchema(sizeId,sizeName,sizeDescription,sizeHasActivedComplements, sizePrice, complementCategories, List.of(feedstockBaseConsumption));
 
         Mockito.when(feedstockBaseConsumptionMapper.toDomain(feedstockBaseConsumption)).thenReturn(servingSize.getFeedstocksBaseConsumption().get(0));
         Mockito.when(feedstockBaseConsumptionMapper.toPersistence(servingSize.getFeedstocksBaseConsumption().get(0))).thenReturn(servingSizeSchema.getFeedstockBaseConsumptions().get(0));

@@ -1,8 +1,7 @@
 package delivery.deliveryapp.shared.valueObjects;
 
-import delivery.deliveryapp.domain.complementCategory.enums.MeasurementType;
+import delivery.deliveryapp.domain.enums.MeasurementType;
 import delivery.deliveryapp.shared.exceptions.DomainException;
-import delivery.deliveryapp.shared.valueObjects.UnitOfMeasurement;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

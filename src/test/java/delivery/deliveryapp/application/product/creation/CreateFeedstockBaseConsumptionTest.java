@@ -1,7 +1,7 @@
 package delivery.deliveryapp.application.product.creation;
 
 import delivery.deliveryapp.application.product.creation.dtos.CreateFeedstockBaseConsumptionDto;
-import delivery.deliveryapp.domain.complementCategory.enums.MeasurementType;
+import delivery.deliveryapp.domain.enums.MeasurementType;
 import delivery.deliveryapp.shared.UniqueIdentifier;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

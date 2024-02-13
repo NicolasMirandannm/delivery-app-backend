@@ -1,6 +1,6 @@
 package delivery.deliveryapp.shared.valueObjects;
 
-import delivery.deliveryapp.domain.complementCategory.enums.MeasurementType;
+import delivery.deliveryapp.domain.enums.MeasurementType;
 import delivery.deliveryapp.shared.exceptions.DomainException;
 
 public record UnitOfMeasurement(MeasurementType type, Double amount) {

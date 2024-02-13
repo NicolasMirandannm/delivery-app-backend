@@ -1,6 +1,5 @@
-package delivery.deliveryapp.domain.complementCategory;
+package delivery.deliveryapp.domain.product.entities;
 
-import delivery.deliveryapp.domain.complementCategory.entities.ComplementItem;
 import delivery.deliveryapp.shared.UniqueIdentifier;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,19 +11,19 @@ import java.util.List;
 public class ComplementCategoryTest {
 
     private String categoryName;
-    private UniqueIdentifier productId;
+    private Integer amountAvailable;
     private List<ComplementItem> complements;
 
     @BeforeEach
     void setup() {
         this.categoryName = "Frutas";
-        this.productId = UniqueIdentifier.create();
+        this.amountAvailable = 5;
         this.complements = new ArrayList<ComplementItem>();
     }
 
     @Test
     void should_create_a_complement_category() {
-        var complementCategoryCreated = ComplementCategory.create(UniqueIdentifier.create(), categoryName, productId, complements);
+        var complementCategoryCreated = ComplementCategory.create(UniqueIdentifier.create(), categoryName, amountAvailable, complements);
 
         Assertions.assertNotNull(complementCategoryCreated.getId());
     }

@@ -1,7 +1,7 @@
 package delivery.deliveryapp.portsAndAdapters.database.mapper.product;
 
-import delivery.deliveryapp.domain.complementCategory.enums.MeasurementType;
-import delivery.deliveryapp.domain.product.entities.FeedstockBaseConsumption;
+import delivery.deliveryapp.domain.enums.MeasurementType;
+import delivery.deliveryapp.domain.product.entities.ProductFeedstockBaseConsumption;
 import delivery.deliveryapp.portsAndAdapters.database.repository.mapper.implementations.product.FeedstockBaseConsumptionMapper;
 import delivery.deliveryapp.portsAndAdapters.database.schemas.FeedstockBaseConsumptionSchema;
 import delivery.deliveryapp.shared.UniqueIdentifier;
@@ -19,7 +19,7 @@ public class FeedstockBaseConsumptionMapperTest {
     private FeedstockBaseConsumptionMapper feedstockBaseConsumptionMapper;
 
     private FeedstockBaseConsumptionSchema feedstockBaseConsumptionSchema;
-    private FeedstockBaseConsumption feedstockBaseConsumption;
+    private ProductFeedstockBaseConsumption feedstockBaseConsumption;
 
     @BeforeEach
     void setup() {
@@ -31,7 +31,7 @@ public class FeedstockBaseConsumptionMapperTest {
                 MeasurementType.GRAM,
                 10.0
         );
-        feedstockBaseConsumption = FeedstockBaseConsumption.create(
+        feedstockBaseConsumption = ProductFeedstockBaseConsumption.create(
                 UniqueIdentifier.createFrom(feedstockBaseConsumptionSchema.getId()),
                 UniqueIdentifier.createFrom(feedstockBaseConsumptionSchema.getFeedstockId()),
                 feedstockBaseConsumptionSchema.getQuantity(),

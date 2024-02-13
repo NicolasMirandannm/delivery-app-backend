@@ -9,25 +9,25 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class FeedstockBaseConsumption extends DomainEntity {
+public class ProductFeedstockBaseConsumption extends DomainEntity {
     private UniqueIdentifier feedstockId;
     private Integer quantity;
     private UnitOfMeasurement consumptionPerUnity;
 
-    protected FeedstockBaseConsumption(UniqueIdentifier id, UniqueIdentifier feedstockId, Integer quantity, UnitOfMeasurement consumptionPerUnity) {
+    protected ProductFeedstockBaseConsumption(UniqueIdentifier id, UniqueIdentifier feedstockId, Integer quantity, UnitOfMeasurement consumptionPerUnity) {
         super(id);
         this.feedstockId = feedstockId;
         this.quantity = quantity;
         this.consumptionPerUnity = consumptionPerUnity;
     }
 
-    public static FeedstockBaseConsumption create(UniqueIdentifier id, UniqueIdentifier feedstockId, Integer quantity, UnitOfMeasurement consumptionPerUnity) {
+    public static ProductFeedstockBaseConsumption create(UniqueIdentifier id, UniqueIdentifier feedstockId, Integer quantity, UnitOfMeasurement consumptionPerUnity) {
         verifyCreationParameters(id, feedstockId, quantity, consumptionPerUnity);
-        return new FeedstockBaseConsumption(id, feedstockId, quantity, consumptionPerUnity);
+        return new ProductFeedstockBaseConsumption(id, feedstockId, quantity, consumptionPerUnity);
     }
 
-    public static FeedstockBaseConsumption createNew(UniqueIdentifier feedstockId, Integer quantity, UnitOfMeasurement consumptionPerUnity) {
-        return FeedstockBaseConsumption.create(UniqueIdentifier.create(), feedstockId, quantity, consumptionPerUnity);
+    public static ProductFeedstockBaseConsumption createNew(UniqueIdentifier feedstockId, Integer quantity, UnitOfMeasurement consumptionPerUnity) {
+        return ProductFeedstockBaseConsumption.create(UniqueIdentifier.create(), feedstockId, quantity, consumptionPerUnity);
     }
 
     private static void verifyCreationParameters(UniqueIdentifier id, UniqueIdentifier feedstockId, Integer quantity, UnitOfMeasurement consumptionPerUnity) {

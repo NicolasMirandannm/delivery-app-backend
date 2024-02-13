@@ -1,7 +1,8 @@
 package delivery.deliveryapp.domain.builder;
 
-import delivery.deliveryapp.domain.complementCategory.enums.MeasurementType;
-import delivery.deliveryapp.domain.product.entities.FeedstockBaseConsumption;
+import delivery.deliveryapp.domain.enums.MeasurementType;
+import delivery.deliveryapp.domain.product.entities.ComplementCategory;
+import delivery.deliveryapp.domain.product.entities.ProductFeedstockBaseConsumption;
 import delivery.deliveryapp.domain.product.entities.ServingSize;
 import delivery.deliveryapp.shared.UniqueIdentifier;
 import delivery.deliveryapp.shared.valueObjects.UnitOfMeasurement;
@@ -10,13 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class ServingSizeBuilder {
-    private UniqueIdentifier complementCategoryId;
+    private List<ComplementCategory> complementCategories;
     private String name;
     private String description;
     private Boolean activedComplements = false;
-    private Integer amountOfComplements;
     private Double price;
-    private List<FeedstockBaseConsumption> feedstocksBaseConsumption;
+    private List<ProductFeedstockBaseConsumption> feedstocksBaseConsumption;
     private UniqueIdentifier id;
 
     private ServingSizeBuilder() {
@@ -26,8 +26,8 @@ public final class ServingSizeBuilder {
         return new ServingSizeBuilder();
     }
 
-    public ServingSizeBuilder withComplementCategoryId(UniqueIdentifier complementCategoryId) {
-        this.complementCategoryId = complementCategoryId;
+    public ServingSizeBuilder withComplementCategories() {
+        this.complementCategories = new ArrayList<ComplementCategory>();
         return this;
     }
 
@@ -46,13 +46,8 @@ public final class ServingSizeBuilder {
         return this;
     }
 
-    public ServingSizeBuilder withAmountOfComplements(Integer amountOfComplements) {
-        this.amountOfComplements = amountOfComplements;
-        return this;
-    }
-
     public ServingSizeBuilder withFeedstocksBaseConsumption() {
-        var feedstockBaseConsumption = FeedstockBaseConsumption
+        var feedstockBaseConsumption = ProductFeedstockBaseConsumption
                 .create(UniqueIdentifier.create(), UniqueIdentifier.create(), 1, UnitOfMeasurement.create(MeasurementType.GRAM, 10.0));
         this.feedstocksBaseConsumption = List.of(feedstockBaseConsumption);
         return this;
@@ -64,8 +59,8 @@ public final class ServingSizeBuilder {
     }
 
     public ServingSize build() {
-        ServingSize servingSize = ServingSize.create(id, name, description, activedComplements, amountOfComplements, price, complementCategoryId, feedstocksBaseConsumption);
-        servingSize.setComplementCategoryId(complementCategoryId);
+        ServingSize servingSize = ServingSize.create(id, name, description, activedComplements, price, complementCategories, feedstocksBaseConsumption);
+        servingSize.setComplementCategories(complementCategories);
         return servingSize;
     }
 }

@@ -1,14 +1,14 @@
 package delivery.deliveryapp.portsAndAdapters.database.repository.mapper.implementations.productCategory;
 
 import delivery.deliveryapp.domain.productCategory.ProductCategory;
-import delivery.deliveryapp.portsAndAdapters.database.repository.mapper.IMapper;
+import delivery.deliveryapp.portsAndAdapters.database.repository.mapper.Mapper;
 import delivery.deliveryapp.portsAndAdapters.database.schemas.ProductCategorySchema;
 import delivery.deliveryapp.shared.UniqueIdentifier;
 import delivery.deliveryapp.shared.exceptions.InfraException;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProductCategoryMapper implements IMapper<ProductCategory, ProductCategorySchema> {
+public class ProductCategoryMapper implements Mapper<ProductCategory, ProductCategorySchema> {
 
     @Override
     public ProductCategory toDomain(ProductCategorySchema schema) {

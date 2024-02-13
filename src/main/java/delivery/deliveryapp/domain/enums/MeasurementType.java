@@ -1,4 +1,4 @@
-package delivery.deliveryapp.domain.complementCategory.enums;
+package delivery.deliveryapp.domain.enums;
 
 public enum MeasurementType {
     GRAM("G"),

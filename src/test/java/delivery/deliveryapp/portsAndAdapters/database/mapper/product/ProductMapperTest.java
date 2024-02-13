@@ -3,7 +3,7 @@ package delivery.deliveryapp.portsAndAdapters.database.mapper.product;
 import delivery.deliveryapp.domain.builder.ProductBuilder;
 import delivery.deliveryapp.domain.product.Product;
 import delivery.deliveryapp.domain.product.entities.ServingSize;
-import delivery.deliveryapp.portsAndAdapters.database.repository.mapper.IMapper;
+import delivery.deliveryapp.portsAndAdapters.database.repository.mapper.Mapper;
 import delivery.deliveryapp.portsAndAdapters.database.repository.mapper.implementations.product.ProductMapper;
 import delivery.deliveryapp.portsAndAdapters.database.schemas.ProductSchema;
 import delivery.deliveryapp.portsAndAdapters.database.schemas.ServingSizeSchema;
@@ -23,7 +23,7 @@ public class ProductMapperTest {
     private ProductMapper productMapper;
 
     @Mock
-    private IMapper<ServingSize, ServingSizeSchema> servingSizeMapper;
+    private Mapper<ServingSize, ServingSizeSchema> servingSizeMapper;
 
     private Product product;
     private ProductSchema productSchema;

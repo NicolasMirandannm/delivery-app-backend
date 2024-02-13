@@ -2,7 +2,7 @@ package delivery.deliveryapp.portsAndAdapters.database.repository;
 
 import delivery.deliveryapp.domain.product.Product;
 import delivery.deliveryapp.domain.repository.IProductRepository;
-import delivery.deliveryapp.portsAndAdapters.database.repository.mapper.IMapper;
+import delivery.deliveryapp.portsAndAdapters.database.repository.mapper.Mapper;
 import delivery.deliveryapp.portsAndAdapters.database.schemas.ProductSchema;
 import delivery.deliveryapp.shared.UniqueIdentifier;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import java.util.List;
 public class ProductRepository implements IProductRepository {
 
     private final MongoTemplate mongoTemplate;
-    private final IMapper<Product, ProductSchema> mapper;
+    private final Mapper<Product, ProductSchema> mapper;
 
     @Override
     public void create(Product product) {

@@ -11,42 +11,36 @@ import java.util.List;
 @Getter
 @Setter
 public class ServingSize extends DomainEntity {
-
-    private String name;
-    private String description;
-    private Boolean activedComplements;
-    private Integer amountOfComplements;
-    private Double price;
-    private UniqueIdentifier complementCategoryId;
-    private List<FeedstockBaseConsumption> feedstocksBaseConsumption;
-
-    private ServingSize(UniqueIdentifier id, String name, String description, Boolean activedComplements, Integer amountOfComplements,
-                        Double price, UniqueIdentifier complementTypeId, List<FeedstockBaseConsumption> feedstocksBaseConsumption) {
-        super(id);
-        this.name = name;
-        this.description = description;
-        this.activedComplements = activedComplements;
-        this.amountOfComplements = amountOfComplements;
-        this.price = price;
-        this.complementCategoryId = complementTypeId;
-        this.feedstocksBaseConsumption = feedstocksBaseConsumption;
-    }
-
-    public static ServingSize create(UniqueIdentifier id, String name, String description, Boolean activedComplements, Integer amountOfComplements,
-                                     Double price, UniqueIdentifier complementTypeId, List<FeedstockBaseConsumption> feedstocksBaseConsumption) {
-        if (activedComplements)
-            DomainException.whenIsNull(complementTypeId, "cannot create a serving size with actived complements without id of complement type.");
-
-        return new ServingSize(id, name, description, activedComplements, amountOfComplements, price, complementTypeId, feedstocksBaseConsumption);
-    }
-
-    public static ServingSize createNew(String name, String description, Boolean activedComplements, Integer amountOfComplements,
-                                        Double price, UniqueIdentifier complementTypeId, List<FeedstockBaseConsumption> feedstocksBaseConsumption) {
-        var id = UniqueIdentifier.create();
-        return create(id, name, description, activedComplements, amountOfComplements, price, complementTypeId, feedstocksBaseConsumption);
-    }
-
-    public String getComplementCategoryId() {
-        return complementCategoryId != null ? complementCategoryId.value() : null;
-    }
+  
+  private String name;
+  private String description;
+  private Boolean activedComplements;
+  private Double price;
+  private List<ComplementCategory> complementCategories;
+  private List<ProductFeedstockBaseConsumption> feedstocksBaseConsumption;
+  
+  private ServingSize(UniqueIdentifier id, String name, String description, Boolean activedComplements, Double price,
+        List<ComplementCategory> complementCategories, List<ProductFeedstockBaseConsumption> feedstocksBaseConsumption) {
+    super(id);
+    this.name = name;
+    this.description = description;
+    this.activedComplements = activedComplements;
+    this.price = price;
+    this.complementCategories = complementCategories;
+    this.feedstocksBaseConsumption = feedstocksBaseConsumption;
+  }
+  
+  public static ServingSize create(UniqueIdentifier id, String name, String description, Boolean activedComplements, Double price,
+        List<ComplementCategory> complementCategories, List<ProductFeedstockBaseConsumption> feedstocksBaseConsumption) {
+    if (activedComplements)
+      DomainException.whenIsNull(complementCategories, "cannot create a serving size with actived complements without list of complements.");
+    
+    return new ServingSize(id, name, description, activedComplements, price, complementCategories, feedstocksBaseConsumption);
+  }
+  
+  public static ServingSize createNew(String name, String description, Boolean activedComplements,
+        Double price, List<ComplementCategory> complementCategories, List<ProductFeedstockBaseConsumption> feedstocksBaseConsumption) {
+    var id = UniqueIdentifier.create();
+    return create(id, name, description, activedComplements, price, complementCategories, feedstocksBaseConsumption);
+  }
 }

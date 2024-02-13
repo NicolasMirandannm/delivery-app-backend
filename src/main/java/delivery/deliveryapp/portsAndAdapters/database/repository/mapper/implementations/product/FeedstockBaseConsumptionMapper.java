@@ -1,7 +1,7 @@
 package delivery.deliveryapp.portsAndAdapters.database.repository.mapper.implementations.product;
 
-import delivery.deliveryapp.domain.product.entities.FeedstockBaseConsumption;
-import delivery.deliveryapp.portsAndAdapters.database.repository.mapper.IMapper;
+import delivery.deliveryapp.domain.product.entities.ProductFeedstockBaseConsumption;
+import delivery.deliveryapp.portsAndAdapters.database.repository.mapper.Mapper;
 import delivery.deliveryapp.portsAndAdapters.database.schemas.FeedstockBaseConsumptionSchema;
 import delivery.deliveryapp.shared.UniqueIdentifier;
 import delivery.deliveryapp.shared.exceptions.InfraException;
@@ -9,20 +9,20 @@ import delivery.deliveryapp.shared.valueObjects.UnitOfMeasurement;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FeedstockBaseConsumptionMapper implements IMapper<FeedstockBaseConsumption, FeedstockBaseConsumptionSchema> {
+public class FeedstockBaseConsumptionMapper implements Mapper<ProductFeedstockBaseConsumption, FeedstockBaseConsumptionSchema> {
     @Override
-    public FeedstockBaseConsumption toDomain(FeedstockBaseConsumptionSchema feedstockBaseConsumptionSchema) {
+    public ProductFeedstockBaseConsumption toDomain(FeedstockBaseConsumptionSchema feedstockBaseConsumptionSchema) {
         InfraException.whenIsNull(feedstockBaseConsumptionSchema, "feedstock base consumption schema is null");
 
         var id = UniqueIdentifier.createFrom(feedstockBaseConsumptionSchema.getId());
         var feedstockId = UniqueIdentifier.createFrom(feedstockBaseConsumptionSchema.getFeedstockId());
         var quantity = feedstockBaseConsumptionSchema.getQuantity();
         var consumptionPerUnity = assembleConsumptionPerUnity(feedstockBaseConsumptionSchema);
-        return FeedstockBaseConsumption.create(id, feedstockId, quantity, consumptionPerUnity);
+        return ProductFeedstockBaseConsumption.create(id, feedstockId, quantity, consumptionPerUnity);
     }
 
     @Override
-    public FeedstockBaseConsumptionSchema toPersistence(FeedstockBaseConsumption feedstockBaseConsumption) {
+    public FeedstockBaseConsumptionSchema toPersistence(ProductFeedstockBaseConsumption feedstockBaseConsumption) {
         InfraException.whenIsNull(feedstockBaseConsumption, "feedstock base consumption entity is null");
 
         var id = feedstockBaseConsumption.getIdValue();

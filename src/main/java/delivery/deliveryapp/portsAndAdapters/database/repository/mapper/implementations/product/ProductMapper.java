@@ -2,7 +2,7 @@ package delivery.deliveryapp.portsAndAdapters.database.repository.mapper.impleme
 
 import delivery.deliveryapp.domain.product.Product;
 import delivery.deliveryapp.domain.product.entities.ServingSize;
-import delivery.deliveryapp.portsAndAdapters.database.repository.mapper.IMapper;
+import delivery.deliveryapp.portsAndAdapters.database.repository.mapper.Mapper;
 import delivery.deliveryapp.portsAndAdapters.database.schemas.ProductSchema;
 import delivery.deliveryapp.portsAndAdapters.database.schemas.ServingSizeSchema;
 import delivery.deliveryapp.shared.UniqueIdentifier;
@@ -14,9 +14,9 @@ import java.util.ArrayList;
 
 @Component
 @RequiredArgsConstructor
-public class ProductMapper implements IMapper<Product, ProductSchema> {
+public class ProductMapper implements Mapper<Product, ProductSchema> {
 
-    private final IMapper<ServingSize, ServingSizeSchema> servingSizeMapper;
+    private final Mapper<ServingSize, ServingSizeSchema> servingSizeMapper;
 
     @Override
     public Product toDomain(ProductSchema productSchema) {

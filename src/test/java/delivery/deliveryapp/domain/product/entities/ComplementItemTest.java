@@ -1,6 +1,7 @@
-package delivery.deliveryapp.domain.complementCategory.entities;
+package delivery.deliveryapp.domain.product.entities;
 
-import delivery.deliveryapp.domain.complementCategory.enums.MeasurementType;
+import delivery.deliveryapp.domain.enums.MeasurementType;
+import delivery.deliveryapp.domain.product.entities.ComplementItem;
 import delivery.deliveryapp.shared.valueObjects.UnitOfMeasurement;
 import delivery.deliveryapp.shared.UniqueIdentifier;
 import org.junit.jupiter.api.Assertions;

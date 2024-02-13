@@ -1,18 +1,15 @@
 package delivery.deliveryapp.portsAndAdapters.database.repository;
 
-import delivery.deliveryapp.domain.product.Product;
 import delivery.deliveryapp.domain.productCategory.ProductCategory;
 import delivery.deliveryapp.domain.repository.IProductCategoryRepository;
-import delivery.deliveryapp.portsAndAdapters.database.repository.mapper.IMapper;
+import delivery.deliveryapp.portsAndAdapters.database.repository.mapper.Mapper;
 import delivery.deliveryapp.portsAndAdapters.database.schemas.ProductCategorySchema;
-import delivery.deliveryapp.portsAndAdapters.database.schemas.ProductSchema;
 import delivery.deliveryapp.shared.UniqueIdentifier;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -22,7 +19,7 @@ import java.util.List;
 public class ProductCategoryRepository implements IProductCategoryRepository {
 
     private final MongoTemplate mongoTemplate;
-    private final IMapper<ProductCategory, ProductCategorySchema> mapper;
+    private final Mapper<ProductCategory, ProductCategorySchema> mapper;
 
     @Override
     public void create(ProductCategory productCategory) {

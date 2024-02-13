@@ -13,8 +13,7 @@ public class CreateServingSizeDto {
     private String name;
     private String description;
     private Boolean complementsIsActive;
-    private Integer amountOfComplements;
     private Double price;
-    private String complementTypeId;
+    private List<CreateComplementCategoryDto> complementCategories;
     private List<CreateFeedstockBaseConsumptionDto> feedstocksBaseConsumptions;
 }

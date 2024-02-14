@@ -1,7 +1,7 @@
 package delivery.deliveryapp.portsAndAdapters.database.repository;
 
 import delivery.deliveryapp.domain.product.Product;
-import delivery.deliveryapp.domain.repository.IProductRepository;
+import delivery.deliveryapp.domain.repository.ProductRepository;
 import delivery.deliveryapp.portsAndAdapters.database.repository.mapper.Mapper;
 import delivery.deliveryapp.portsAndAdapters.database.schemas.ProductSchema;
 import delivery.deliveryapp.shared.UniqueIdentifier;
@@ -15,7 +15,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class ProductRepository implements IProductRepository {
+public class ProductRepositoryImplementation implements ProductRepository {
 
     private final MongoTemplate mongoTemplate;
     private final Mapper<Product, ProductSchema> mapper;

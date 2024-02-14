@@ -1,7 +1,7 @@
 package delivery.deliveryapp.application.productCategory;
 
 import delivery.deliveryapp.domain.productCategory.ProductCategory;
-import delivery.deliveryapp.domain.repository.IProductCategoryRepository;
+import delivery.deliveryapp.domain.repository.ProductCategoryRepository;
 import delivery.deliveryapp.shared.exceptions.ApplicationException;
 import delivery.deliveryapp.shared.service.CreationService;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CreateProductCategory implements CreationService<CreateProductCategoryDto, ProductCategory> {
 
-    private final IProductCategoryRepository productCategoryRepository;
+    private final ProductCategoryRepository productCategoryRepository;
 
     @Override
     public ProductCategory create(CreateProductCategoryDto createCategoryDto) {

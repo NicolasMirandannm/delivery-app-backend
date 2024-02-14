@@ -1,7 +1,7 @@
 package delivery.deliveryapp.application.productCategory;
 
 import delivery.deliveryapp.domain.productCategory.ProductCategory;
-import delivery.deliveryapp.domain.repository.IProductCategoryRepository;
+import delivery.deliveryapp.domain.repository.ProductCategoryRepository;
 import delivery.deliveryapp.shared.exceptions.ApplicationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,15 +11,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import java.lang.reflect.Executable;
-
 public class CreateProductCategoryTest {
 
     @InjectMocks
     CreateProductCategory createProductCategory;
 
     @Mock
-    IProductCategoryRepository productCategoryRepository;
+    ProductCategoryRepository productCategoryRepository;
 
     private CreateProductCategoryDto createProductCategoryDto;
 

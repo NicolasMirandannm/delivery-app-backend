@@ -8,7 +8,7 @@ import delivery.deliveryapp.domain.builder.ProductBuilder;
 import delivery.deliveryapp.domain.enums.MeasurementType;
 import delivery.deliveryapp.domain.product.Product;
 import delivery.deliveryapp.domain.product.entities.ServingSize;
-import delivery.deliveryapp.domain.repository.IProductRepository;
+import delivery.deliveryapp.domain.repository.ProductRepository;
 import delivery.deliveryapp.shared.UniqueIdentifier;
 import delivery.deliveryapp.shared.exceptions.ApplicationException;
 import delivery.deliveryapp.shared.service.CreationService;
@@ -29,7 +29,7 @@ public class CreateProductTest {
     private CreateProduct createProduct;
 
     @Mock
-    private IProductRepository productRepository;
+    private ProductRepository productRepository;
 
     @Mock
     private CreationService<CreateServingSizeDto, ServingSize> createServingSizeService;

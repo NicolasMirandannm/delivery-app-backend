@@ -4,7 +4,7 @@ import delivery.deliveryapp.application.product.creation.dtos.CreateProductDto;
 import delivery.deliveryapp.application.product.creation.dtos.CreateServingSizeDto;
 import delivery.deliveryapp.domain.product.Product;
 import delivery.deliveryapp.domain.product.entities.ServingSize;
-import delivery.deliveryapp.domain.repository.IProductRepository;
+import delivery.deliveryapp.domain.repository.ProductRepository;
 import delivery.deliveryapp.shared.UniqueIdentifier;
 import delivery.deliveryapp.shared.exceptions.ApplicationException;
 import delivery.deliveryapp.shared.service.CreationService;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CreateProduct implements CreationService<CreateProductDto, Product> {
 
-    private final IProductRepository productRepository;
+    private final ProductRepository productRepository;
     private final CreationService<CreateServingSizeDto, ServingSize> createServingSizeService;
 
     public Product create(CreateProductDto createProductDto) {

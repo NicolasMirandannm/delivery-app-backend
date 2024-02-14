@@ -118,7 +118,8 @@ public class ProductDetailsServiceTest {
     
     var detailedProduct = productDetailsService.detailBy(product);
     
-    Assertions.assertEquals(detailedProductExpected, detailedProduct); // todo ajustar
+    Assertions.assertEquals(detailedProductExpected, detailedProduct);
+    
   }
   
   @Test

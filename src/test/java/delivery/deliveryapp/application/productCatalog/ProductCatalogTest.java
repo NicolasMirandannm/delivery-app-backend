@@ -4,8 +4,8 @@ import delivery.deliveryapp.domain.builder.ProductBuilder;
 import delivery.deliveryapp.domain.builder.ProductCategoryBuilder;
 import delivery.deliveryapp.domain.product.Product;
 import delivery.deliveryapp.domain.productCategory.ProductCategory;
-import delivery.deliveryapp.domain.repository.IProductCategoryRepository;
-import delivery.deliveryapp.domain.repository.IProductRepository;
+import delivery.deliveryapp.domain.repository.ProductCategoryRepository;
+import delivery.deliveryapp.domain.repository.ProductRepository;
 import delivery.deliveryapp.domain.services.productCatalog.IProductCatalogService;
 import delivery.deliveryapp.domain.services.productCatalog.dto.ProductCatalogItem;
 import delivery.deliveryapp.domain.services.productCatalog.dto.ProductItem;
@@ -24,10 +24,10 @@ public class ProductCatalogTest {
     private ProductCatalog productCatalog;
 
     @Mock
-    private IProductRepository productRepository;
+    private ProductRepository productRepository;
 
     @Mock
-    private IProductCategoryRepository productCategoryRepository;
+    private ProductCategoryRepository productCategoryRepository;
 
     @Mock
     private IProductCatalogService productCatalogService;

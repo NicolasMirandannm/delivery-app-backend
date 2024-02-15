@@ -46,6 +46,11 @@ public final class ServingSizeBuilder {
         return this;
     }
 
+    public ServingSizeBuilder withPrice(Double price) {
+        this.price = price;
+        return this;
+    }
+    
     public ServingSizeBuilder withActivedComplements(Boolean activedComplements) {
         this.activedComplements = activedComplements;
         return this;

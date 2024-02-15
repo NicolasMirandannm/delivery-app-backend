@@ -2,6 +2,7 @@ package delivery.deliveryapp.domain.product.entities;
 
 import delivery.deliveryapp.shared.UniqueIdentifier;
 import delivery.deliveryapp.shared.ddd.DomainEntity;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,5 +25,9 @@ public class ComplementCategory extends DomainEntity {
 
     public static ComplementCategory create(UniqueIdentifier id, String categoryName, Integer amountAvailable, List<ComplementItem> complements) {
         return new ComplementCategory(id, categoryName, amountAvailable, complements);
+    }
+    
+    public static ComplementCategory create(String categoryName, Integer amountAvailable, List<ComplementItem> complements) {
+        return new ComplementCategory(UniqueIdentifier.create(), categoryName, amountAvailable, complements);
     }
 }

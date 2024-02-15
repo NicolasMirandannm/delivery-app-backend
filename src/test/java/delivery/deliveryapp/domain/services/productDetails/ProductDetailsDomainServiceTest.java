@@ -22,10 +22,10 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDetailsServiceTest {
+public class ProductDetailsDomainServiceTest {
   
   @InjectMocks
-  private ProductDetailsService productDetailsService;
+  private ProductDetailsDomainServiceImpl productDetailsService;
   
   private Product product;
   
@@ -165,5 +165,20 @@ public class ProductDetailsServiceTest {
     });
     
     Assertions.assertEquals(expectedMessage, exception.getMessage());
+  }
+  
+  @Test
+  void should_load_a_empty_list_of_complements_when_product_no_has_active_complements() {
+    product.getServingSizes().forEach((servingSize -> servingSize.setActivedComplements(false)));
+    var productId = product.getIdValue();
+    var prices = List.of(
+      new PriceDto("small", 10.0),
+      new PriceDto("large", 15.0)
+    );
+    var detailedProductExpected = new ProductDetailsDto(productId, "Ice cream", "Ice cream description", "imageUrl", new ArrayList<>(), prices);
+    
+    var detailedProduct = productDetailsService.detailBy(product);
+    
+    Assertions.assertEquals(detailedProductExpected, detailedProduct);
   }
 }

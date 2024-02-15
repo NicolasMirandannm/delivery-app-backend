@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class ProductDetailsService implements ProductDetailsDomainService {
+public class ProductDetailsDomainServiceImpl implements ProductDetailsDomainService {
   
   @Override
   public ProductDetailsDto detailBy(Product product) {
@@ -37,6 +37,9 @@ public class ProductDetailsService implements ProductDetailsDomainService {
   private List<ComplementCategoryDto> assembleComplementCategories(List<ServingSize> productSizes) {
     var productSize = productSizes.get(0);
     DomainException.whenIsEmptyOrNull(productSize.getComplementCategories(), "could not detail a product with a null complement categories in sizes.");
+    
+    if (!productSize.hasActiveComplements())
+      return List.of();
     
     return productSize.getComplementCategories().stream().map((complementCategory -> {
       var categoryName = complementCategory.getCategoryName();

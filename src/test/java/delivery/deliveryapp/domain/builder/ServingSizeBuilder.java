@@ -30,6 +30,11 @@ public final class ServingSizeBuilder {
         this.complementCategories = new ArrayList<ComplementCategory>();
         return this;
     }
+    
+    public ServingSizeBuilder withComplementCategories(List<ComplementCategory> complementCategories) {
+        this.complementCategories = complementCategories;
+        return this;
+    }
 
     public ServingSizeBuilder withName(String name) {
         this.name = name;

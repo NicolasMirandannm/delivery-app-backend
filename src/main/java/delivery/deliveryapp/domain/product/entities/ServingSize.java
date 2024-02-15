@@ -43,4 +43,8 @@ public class ServingSize extends DomainEntity {
     var id = UniqueIdentifier.create();
     return create(id, name, description, activedComplements, price, complementCategories, feedstocksBaseConsumption);
   }
+  
+  public Boolean hasActiveComplements() {
+    return activedComplements;
+  }
 }

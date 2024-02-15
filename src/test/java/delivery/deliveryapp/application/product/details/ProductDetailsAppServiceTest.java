@@ -17,7 +17,7 @@ import org.mockito.MockitoAnnotations;
 public class ProductDetailsAppServiceTest {
   
   @InjectMocks
-  ProductDetailsService productDetailsService;
+  ProductDetailsAppServiceImpl productDetailsService;
   
   @Mock
   ProductRepository productRepository;

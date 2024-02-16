@@ -6,6 +6,7 @@ import delivery.deliveryapp.domain.repository.ProductRepository;
 import delivery.deliveryapp.domain.services.productDetails.ProductDetailsDomainService;
 import delivery.deliveryapp.shared.UniqueIdentifier;
 import delivery.deliveryapp.shared.exceptions.ApplicationException;
+import delivery.deliveryapp.shared.exceptions.http.NotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -65,7 +66,7 @@ public class ProductDetailsAppServiceTest {
     Mockito.when(productRepository.findBy(this.productId)).thenReturn(null);
     var expectedMessage = "Product not found.";
     
-    Exception exception = Assertions.assertThrows(ApplicationException.class, () -> {
+    Exception exception = Assertions.assertThrows(NotFoundException.class, () -> {
       productDetailsService.getProductDetailsBy(productId);
     });
     

@@ -19,7 +19,7 @@ public record UniqueIdentifier(String value) {
         try {
             return UUID.fromString(uuid).toString();
         }catch (Exception ex) {
-            DomainException.throwException("UUID -> "+uuid+" <- inválido.");
+            DomainException.throwException("UUID -> "+uuid+" <- invalid.");
             return null;
         }
     }

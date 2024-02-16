@@ -1,7 +1,8 @@
 package delivery.deliveryapp.portsAndAdapters.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import delivery.deliveryapp.domain.builder.*;
+import delivery.deliveryapp.domain.builder.ProductBuilder;
+import delivery.deliveryapp.domain.builder.ServingSizeBuilder;
 import delivery.deliveryapp.domain.enums.MeasurementType;
 import delivery.deliveryapp.domain.product.entities.ComplementCategory;
 import delivery.deliveryapp.domain.product.entities.ComplementItem;
@@ -11,6 +12,8 @@ import delivery.deliveryapp.domain.services.productDetails.dto.PriceDto;
 import delivery.deliveryapp.domain.services.productDetails.dto.ProductDetailsDto;
 import delivery.deliveryapp.domain.services.productDetails.dto.SizeDto;
 import delivery.deliveryapp.shared.UniqueIdentifier;
+import delivery.deliveryapp.shared.exceptions.DomainException;
+import delivery.deliveryapp.shared.exceptions.http.NotFoundException;
 import delivery.deliveryapp.shared.valueObjects.UnitOfMeasurement;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,6 +27,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 @SpringBootTest
@@ -75,7 +81,7 @@ public class ProductDetailsIntegrationTest {
   
   @AfterEach
   void tearDown() {
-//    productRepository.delete(productId);
+    productRepository.deleteBy(productId);
   }
   
   @Test
@@ -94,5 +100,28 @@ public class ProductDetailsIntegrationTest {
     mockMvc.perform(MockMvcRequestBuilders.get("/product/detail/{productId}", productId))
       .andExpect(MockMvcResultMatchers.status().isOk())
       .andExpect(MockMvcResultMatchers.content().json(detailedProductJson));
+  }
+  
+  @Test
+  void should_return_not_found_when_product_id_doesnt_match_any_product() throws Exception {
+    mockMvc
+      .perform(MockMvcRequestBuilders.get("/product/detail/{productId}", UniqueIdentifier.create().value()).content("application/json"))
+      .andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
+      .andExpect(result -> assertEquals("Product not found.", result.getResolvedException().getMessage()));
+  }
+  
+  @Test
+  void should_return_not_found_when_product_id_in_request_is_null() throws Exception {
+    mockMvc
+      .perform(MockMvcRequestBuilders.get("/product/detail/{productId}", "").content("application/json"))
+      .andExpect(MockMvcResultMatchers.status().isNotFound());
+  }
+  
+  @Test
+  void should_return_bad_request_when_product_id_has_a_invalid_format() throws Exception {
+    mockMvc
+      .perform(MockMvcRequestBuilders.get("/product/detail/{productId}", "invalid id").content("application/json"))
+      .andExpect(result -> assertTrue(result.getResolvedException() instanceof DomainException))
+      .andExpect(result -> assertEquals("UUID -> invalid id <- invalid.", result.getResolvedException().getMessage()));
   }
 }

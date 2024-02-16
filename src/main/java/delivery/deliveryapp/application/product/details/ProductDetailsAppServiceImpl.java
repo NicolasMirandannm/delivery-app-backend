@@ -5,6 +5,7 @@ import delivery.deliveryapp.domain.services.productDetails.ProductDetailsDomainS
 import delivery.deliveryapp.domain.services.productDetails.dto.ProductDetailsDto;
 import delivery.deliveryapp.shared.UniqueIdentifier;
 import delivery.deliveryapp.shared.exceptions.ApplicationException;
+import delivery.deliveryapp.shared.exceptions.http.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,9 @@ public class ProductDetailsAppServiceImpl implements ProductDetailsAppService {
     var id = UniqueIdentifier.createFrom(productId);
     var product = productRepository.findBy(id);
     
-    ApplicationException.whenIsNull(product, "Product not found.");
+    if (product == null) {
+      throw new NotFoundException("Product not found.");
+    }
     return productDetailsDomainService.detailBy(product);
   }
 }

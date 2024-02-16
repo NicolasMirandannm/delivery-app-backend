@@ -33,7 +33,7 @@ public class ProductRepositoryImplementation implements ProductRepository {
     }
 
     @Override
-    public void delete(UniqueIdentifier productId) {
+    public void deleteBy(UniqueIdentifier productId) {
         var productSchema = mongoTemplate.findById(productId.value(), ProductSchema.class);
         if (productSchema != null)
             mongoTemplate.remove(productSchema);

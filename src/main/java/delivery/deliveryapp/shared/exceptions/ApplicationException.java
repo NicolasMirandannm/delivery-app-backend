@@ -1,6 +1,7 @@
 package delivery.deliveryapp.shared.exceptions;
 
 import delivery.deliveryapp.domain.product.entities.ServingSize;
+import delivery.deliveryapp.shared.exceptions.http.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -26,4 +27,5 @@ public class ApplicationException extends RuntimeException {
   public static void throwException(String message) {
     throw new ApplicationException(message);
   }
+  
 }

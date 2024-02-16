@@ -35,7 +35,7 @@ public class ProductCategoryRepositoryImplementation implements ProductCategoryR
     }
 
     @Override
-    public void delete(UniqueIdentifier identifier) {
+    public void deleteBy(UniqueIdentifier identifier) {
         var category = mongoTemplate.findById(identifier.value(), ProductCategorySchema.class);
         if (category != null)
             mongoTemplate.remove(category);

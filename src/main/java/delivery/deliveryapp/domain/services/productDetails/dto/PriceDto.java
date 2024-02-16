@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PriceDto {
     private String sizeDescription;
-    private Double Price;
+    private Double price;
 }

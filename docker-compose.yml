@@ -10,6 +10,8 @@ services:
       - "8080:8080"
     depends_on:
       - mongodb
+    links:
+      - mongodb
     networks:
       - delivery-network
     volumes:
@@ -24,8 +26,8 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - type: volume
-        source: database-vol
+      - type: bind
+        source: docker-dev/database/data
         target: /data/db
     networks:
       - delivery-network

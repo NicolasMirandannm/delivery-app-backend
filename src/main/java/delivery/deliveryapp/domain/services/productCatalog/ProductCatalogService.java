@@ -30,7 +30,10 @@ public class ProductCatalogService implements IProductCatalogService {
                 var categoryId = product.getProductCategoryId();
                 var servingSizes = product.getServingSizes().stream().map(this::assembleServingSizeItem).toList();
                 var productItem = assembleProductItem(product, servingSizes);
-                catalog.get(categoryId).getProducts().add(productItem); // todo testar para quando tiver um produto sem categoria
+                var category = catalog.get(categoryId);
+                if (category != null) {
+                    category.getProducts().add(productItem);
+                }
             }
         }
 

@@ -7,6 +7,7 @@ import delivery.deliveryapp.domain.productCategory.ProductCategory;
 import delivery.deliveryapp.domain.services.productCatalog.dto.ProductCatalogItem;
 import delivery.deliveryapp.domain.services.productCatalog.dto.ProductItem;
 import delivery.deliveryapp.domain.services.productCatalog.dto.ServingSizeItem;
+import delivery.deliveryapp.shared.UniqueIdentifier;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -113,4 +114,13 @@ public class ProductCatalogServiceTest {
         Assertions.assertTrue(catalogItems.isEmpty());
     }
 
+    @Test
+    void should_not_vincule_product_to_category_when_product_has_no_category_valid() {
+        var invalidCategoryId = UniqueIdentifier.create();
+        products.get(0).setProductCategoryId(invalidCategoryId);
+        
+        var catalogs = productCatalogService.assemble(productCategories, products);
+
+        Assertions.assertTrue(catalogs.get(0).getProducts().isEmpty());
+    }
 }

@@ -1,4 +1,4 @@
-package delivery.deliveryapp.infra.config.cloudstorage;
+package delivery.deliveryapp.infra.filestorage;
 
 import com.amazonaws.services.s3.model.S3Object;
 

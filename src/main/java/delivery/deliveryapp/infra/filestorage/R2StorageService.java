@@ -1,7 +1,8 @@
-package delivery.deliveryapp.infra.config.cloudstorage;
+package delivery.deliveryapp.infra.filestorage;
 
-import com.amazonaws.services.s3.model.S3Object;
-
+import delivery.deliveryapp.infra.cache.ImageStorageCacheRepository;
+import delivery.deliveryapp.infra.cache.entities.ImageStorageCache;
+import delivery.deliveryapp.infra.config.cloudstorage.AWSConfig;
 import delivery.deliveryapp.shared.exceptions.InfraException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -11,13 +12,13 @@ import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignReques
 
 import java.io.File;
 import java.time.Duration;
-import java.util.Scanner;
 
 @Component
 @RequiredArgsConstructor
 public class R2StorageService implements R2Storage {
   
   private final AWSConfig awsConfig;
+  private final ImageStorageCacheRepository imageStorageCache;
   
   @Override
   public void putObject(String bucketName, String key, String content) {
@@ -27,21 +28,27 @@ public class R2StorageService implements R2Storage {
   
   @Override
   public String getObject(String bucketName, String key) {
+    var imageInCache = imageStorageCache.findById(key);
+    if (imageInCache.isPresent())
+      return imageInCache.get().getUrl();
     
     try (S3Presigner presigner = awsConfig.s3Presigner()) {
+      var ttl = Duration.ofMinutes(30);
       var objectRequest = GetObjectRequest.builder()
         .bucket(bucketName)
         .key(key)
         .build();
       
       var presignRequest = GetObjectPresignRequest.builder()
-        .signatureDuration(Duration.ofMinutes(10))
+        .signatureDuration(ttl)
         .getObjectRequest(objectRequest)
         .build();
       
       var presignedRequest = presigner.presignGetObject(presignRequest);
+      var presignedUrl = presignedRequest.url().toExternalForm();
       
-      return presignedRequest.url().toExternalForm();
+      imageStorageCache.save(new ImageStorageCache(key, presignedUrl, ttl.toSeconds()));
+      return presignedUrl;
     }
     catch (Exception e) {
       InfraException.throwException("Error getting object from R2 -> " + e.getMessage());

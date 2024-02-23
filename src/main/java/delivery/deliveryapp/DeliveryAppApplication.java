@@ -1,7 +1,8 @@
 package delivery.deliveryapp;
 
-import delivery.deliveryapp.portsAndAdapters.filesystem.StorageProperties;
-import delivery.deliveryapp.portsAndAdapters.filesystem.StorageService;
+import delivery.deliveryapp.infra.config.cloudstorage.AWSConfig;
+import delivery.deliveryapp.infra.config.filesystem.StorageProperties;
+import delivery.deliveryapp.infra.config.filesystem.StorageService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

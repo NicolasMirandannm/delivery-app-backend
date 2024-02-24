@@ -2,6 +2,7 @@ package delivery.deliveryapp.application.product.creation;
 
 import delivery.deliveryapp.application.product.creation.dtos.CreateProductDto;
 import delivery.deliveryapp.application.product.creation.dtos.CreateServingSizeDto;
+import delivery.deliveryapp.application.fileupload.UploadFile;
 import delivery.deliveryapp.domain.product.Product;
 import delivery.deliveryapp.domain.product.entities.ServingSize;
 import delivery.deliveryapp.domain.repository.ProductRepository;
@@ -17,6 +18,7 @@ public class CreateProduct implements CreationService<CreateProductDto, Product>
 
     private final ProductRepository productRepository;
     private final CreationService<CreateServingSizeDto, ServingSize> createServingSizeService;
+    private final UploadFile uploadFile;
 
     public Product create(CreateProductDto createProductDto) {
         ApplicationException.whenIsNull(createProductDto, "cannot create a product without product creation data.");
@@ -28,9 +30,9 @@ public class CreateProduct implements CreationService<CreateProductDto, Product>
         var productCategoryId = UniqueIdentifier.createFrom(createProductDto.getProductCategoryId());
         var name = createProductDto.getName();
         var description = createProductDto.getDescription();
-        var imageURI = createProductDto.getImageURI();
+        var imageKey = uploadFile.upload(createProductDto.getImage()); //todo implementar teste para essa linha
 
-        var productCreated = Product.createNew(name, description, imageURI, productCategoryId);
+        var productCreated = Product.createNew(name, description, imageKey, productCategoryId);
 
         for (var servingSizeDto : createProductDto.getServingSizes()) {
             var servingSize = createServingSizeService.create(servingSizeDto);

@@ -3,6 +3,7 @@ package delivery.deliveryapp.application.product.creation.dtos;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public class CreateProductDto {
     private String name;
     private String description;
-    private String imageURI;
+    private MultipartFile image;
     private String productCategoryId;
     private List<CreateServingSizeDto> servingSizes;
 

@@ -1,4 +1,4 @@
-package delivery.deliveryapp.infra.rest.products;
+package delivery.deliveryapp.infra.rest.catalog;
 
 import delivery.deliveryapp.application.productCatalog.IProductCatalog;
 import delivery.deliveryapp.domain.services.productCatalog.dto.ProductCatalogItem;

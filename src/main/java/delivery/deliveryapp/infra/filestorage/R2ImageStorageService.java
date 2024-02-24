@@ -1,11 +1,18 @@
 package delivery.deliveryapp.infra.filestorage;
 
+import ch.qos.logback.core.util.FileUtil;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import delivery.deliveryapp.infra.cache.ImageStorageCacheRepository;
 import delivery.deliveryapp.infra.cache.entities.ImageStorageCache;
 import delivery.deliveryapp.infra.config.cloudstorage.AWSConfig;
 import delivery.deliveryapp.shared.exceptions.InfraException;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
@@ -15,19 +22,30 @@ import java.time.Duration;
 
 @Component
 @RequiredArgsConstructor
-public class R2StorageService implements R2Storage {
+public class R2ImageStorageService implements R2FileStorageService<String> {
+  
+  @Value("${r2.storage.image-bucket}")
+  private String bucketName;
   
   private final AWSConfig awsConfig;
   private final ImageStorageCacheRepository imageStorageCache;
   
   @Override
-  public void putObject(String bucketName, String key, String content) {
-    //todo create a parser of imafe multipart file to file for put object -> https://issackpaul95.medium.com/aws-s3-bucket-file-upload-with-spring-boot-719ede4e7f78
-    awsConfig.s3client().putObject(bucketName, key, new File(content));
+  public void store(String key, MultipartFile content) {
+    try {
+      ObjectMetadata metadata = new ObjectMetadata();
+      metadata.setContentLength(content.getSize());
+      metadata.setContentType(content.getContentType());
+      
+      awsConfig.s3client().putObject(new PutObjectRequest(bucketName, key, content.getInputStream(), metadata)
+        .withCannedAcl(CannedAccessControlList.PublicRead));
+    } catch (Exception e) {
+      InfraException.throwException("Error storing object in R2 -> " + e.getMessage());
+    }
   }
   
   @Override
-  public String getObject(String bucketName, String key) {
+  public String getObject(String key) {
     var imageInCache = imageStorageCache.findById(key);
     if (imageInCache.isPresent())
       return imageInCache.get().getUrl();

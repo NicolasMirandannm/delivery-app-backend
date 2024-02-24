@@ -1,4 +1,4 @@
-package delivery.deliveryapp.infra.rest.products;
+package delivery.deliveryapp.infra.rest.product;
 
 import delivery.deliveryapp.application.product.details.ProductDetailsAppService;
 import delivery.deliveryapp.domain.services.productDetails.dto.ProductDetailsDto;

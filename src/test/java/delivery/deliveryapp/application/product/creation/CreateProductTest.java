@@ -1,5 +1,6 @@
 package delivery.deliveryapp.application.product.creation;
 
+import delivery.deliveryapp.application.fileupload.UploadFile;
 import delivery.deliveryapp.application.product.creation.dtos.CreateComplementCategoryDto;
 import delivery.deliveryapp.application.product.creation.dtos.CreateFeedstockBaseConsumptionDto;
 import delivery.deliveryapp.application.product.creation.dtos.CreateProductDto;
@@ -19,6 +20,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.mock.web.MockMultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,9 @@ public class CreateProductTest {
     @Mock
     private CreationService<CreateServingSizeDto, ServingSize> createServingSizeService;
 
+    @Mock
+    private UploadFile uploadFile;
+    
     private Product product;
     private CreateProductDto createProductDto;
     private CreateServingSizeDto servingSizeDto;
@@ -55,7 +60,8 @@ public class CreateProductTest {
                 servingSize.getPrice(), new ArrayList<CreateComplementCategoryDto>(), feedstocksBaseConsumption
         );
         createProductDto = new CreateProductDto("Mongo Ice cream", "product description", categoryId, List.of(servingSizeDto));
-        createProductDto.setImageURI("uri image");
+        createProductDto.setImage(new MockMultipartFile("image", "image.jpg", "image/jpeg", "image".getBytes()));
+        Mockito.when(uploadFile.upload(createProductDto.getImage())).thenReturn("imageKey");
     }
 
     @Test
@@ -65,6 +71,15 @@ public class CreateProductTest {
         var productCreated = createProduct.create(createProductDto);
 
         Assertions.assertEquals(product.getName(), productCreated.getName());;
+    }
+    
+    @Test
+    void should_upload_image() {
+        Mockito.when(createServingSizeService.create(servingSizeDto)).thenReturn(product.getServingSizes().get(0));
+        
+        createProduct.create(createProductDto);
+
+        Mockito.verify(uploadFile, Mockito.times(1)).upload(createProductDto.getImage());
     }
 
     @Test

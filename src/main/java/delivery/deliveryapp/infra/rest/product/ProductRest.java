@@ -1,4 +1,4 @@
-package delivery.deliveryapp.infra.rest.products;
+package delivery.deliveryapp.infra.rest.product;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import delivery.deliveryapp.application.product.creation.dtos.CreateProductDto;
@@ -10,6 +10,7 @@ import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,10 +23,11 @@ public class ProductRest {
     private final StorageService storageService;
     private final ObjectMapper mapper = new ObjectMapper();
 
+    @Async
     @PostMapping
-    public ResponseEntity<String> create(
+    public void create(
             @RequestParam("createProductDto") String createProductDto,
-            @RequestParam("file") MultipartFile file
+            @RequestParam("productImage") MultipartFile productImage
     ) {
         CreateProductDto productDto = null;
         try {
@@ -33,10 +35,8 @@ public class ProductRest {
         } catch (Exception e) {
             InfraException.throwException(e.getMessage());
         }
-        productDto.setImageURI(file.getOriginalFilename());
+        productDto.setImage(productImage);
         createProduct.create(productDto);
-        storageService.store(file);
-        return ResponseEntity.ok("Product successfully created.");
     }
 
     @GetMapping

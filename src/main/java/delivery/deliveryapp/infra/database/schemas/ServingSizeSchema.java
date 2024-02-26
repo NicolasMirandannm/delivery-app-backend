@@ -17,9 +17,8 @@ public class ServingSizeSchema {
     private Boolean activedComplements;
     private Double price;
     private List<ComplementCategorySchema> complementCategories;
-    private List<FeedstockBaseConsumptionSchema> feedstockBaseConsumptions;
 
-    public ServingSizeSchema(String id, String name, String description, Boolean activedComplements, Double price, List<ComplementCategorySchema> complementCategories, List<FeedstockBaseConsumptionSchema> feedstockBaseConsumptions) {
+    public ServingSizeSchema(String id, String name, String description, Boolean activedComplements, Double price, List<ComplementCategorySchema> complementCategories) {
         super();
         this.id = id;
         this.name = name;
@@ -27,7 +26,6 @@ public class ServingSizeSchema {
         this.activedComplements = activedComplements;
         this.price = price;
         this.complementCategories = complementCategories;
-        this.feedstockBaseConsumptions = feedstockBaseConsumptions;
     }
 
     @Override
@@ -40,7 +38,6 @@ public class ServingSizeSchema {
                 Objects.equals(description, that.description) &&
                 Objects.equals(activedComplements, that.activedComplements) &&
                 Objects.equals(price, that.price) &&
-                Objects.equals(complementCategories, that.complementCategories) &&
-                Objects.equals(feedstockBaseConsumptions, that.feedstockBaseConsumptions);
+                Objects.equals(complementCategories, that.complementCategories);
     }
 }

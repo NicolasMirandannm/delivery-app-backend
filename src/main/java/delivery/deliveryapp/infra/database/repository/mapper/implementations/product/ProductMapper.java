@@ -5,6 +5,7 @@ import delivery.deliveryapp.domain.product.entities.ServingSize;
 import delivery.deliveryapp.infra.database.repository.mapper.Mapper;
 import delivery.deliveryapp.infra.database.schemas.ProductSchema;
 import delivery.deliveryapp.infra.database.schemas.ServingSizeSchema;
+import delivery.deliveryapp.infra.filestorage.R2FileStorageService;
 import delivery.deliveryapp.shared.UniqueIdentifier;
 import delivery.deliveryapp.shared.exceptions.InfraException;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 public class ProductMapper implements Mapper<Product, ProductSchema> {
 
     private final Mapper<ServingSize, ServingSizeSchema> servingSizeMapper;
+    private final R2FileStorageService<String> r2FileStorageService;
 
     @Override
     public Product toDomain(ProductSchema productSchema) {
@@ -25,7 +27,9 @@ public class ProductMapper implements Mapper<Product, ProductSchema> {
         var id = UniqueIdentifier.createFrom(productSchema.getId());
         var name = productSchema.getName();
         var description = productSchema.getDescription();
-        var imageURI = productSchema.getImageURI();
+        var imageURI = productSchema.getImageURI() == null
+                ? null
+                : r2FileStorageService.getObject(productSchema.getImageURI());
         var isCustomizable = productSchema.getIsCustomizable();
         var isActived = productSchema.getIsActived();
         var productCategoryId = UniqueIdentifier.createFrom(productSchema.getProductCategoryId());

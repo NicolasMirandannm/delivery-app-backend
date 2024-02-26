@@ -16,10 +16,9 @@ public class ComplementItemMapper implements Mapper<ComplementItem, ComplementIt
         InfraException.whenIsNull(complementItemSchema, "could not map a complement item schema to domain entity.");
         
         var id = UniqueIdentifier.createFrom(complementItemSchema.getId());
-        var feedstockId = UniqueIdentifier.createFrom(complementItemSchema.getFeedstockId());
         var name = complementItemSchema.getName();
         var measure = UnitOfMeasurement.create(complementItemSchema.getMeasureType(), complementItemSchema.getAmountOfMeasure());
-        return ComplementItem.create(id, name, feedstockId, measure);
+        return ComplementItem.create(id, name, measure);
     }
 
     @Override
@@ -27,11 +26,10 @@ public class ComplementItemMapper implements Mapper<ComplementItem, ComplementIt
         InfraException.whenIsNull(complementItem, "could not map a complement item entity to schema of persistence.");
         
         var id = complementItem.getIdValue();
-        var feedstockId = complementItem.getFeedstockId().value();
         var name = complementItem.getName();
         var measureType = complementItem.getBaseConsumptionPerUnity().type();
         var amountOfMeasure = complementItem.getBaseConsumptionPerUnity().amount();
         
-        return new ComplementItemSchema(id, feedstockId, name, measureType, amountOfMeasure);
+        return new ComplementItemSchema(id, name, measureType, amountOfMeasure);
     }
 }

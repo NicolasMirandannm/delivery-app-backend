@@ -35,13 +35,13 @@ public class ProductDetailsDomainServiceTest {
     
     var unitOfMeasure = UnitOfMeasurement.create(MeasurementType.GRAM, 100.0);
     var complementItensCategory1 = List.of(
-      ComplementItem.create(UniqueIdentifier.create(), "banana", UniqueIdentifier.create(), unitOfMeasure),
-      ComplementItem.create(UniqueIdentifier.create(), "mango", UniqueIdentifier.create(), unitOfMeasure),
-      ComplementItem.create(UniqueIdentifier.create(), "grape", UniqueIdentifier.create(), unitOfMeasure)
+      ComplementItem.create(UniqueIdentifier.create(), "banana", unitOfMeasure),
+      ComplementItem.create(UniqueIdentifier.create(), "mango", unitOfMeasure),
+      ComplementItem.create(UniqueIdentifier.create(), "grape", unitOfMeasure)
     );
     var complementItensCategory2 = List.of(
-      ComplementItem.create(UniqueIdentifier.create(), "chocolate", UniqueIdentifier.create(), unitOfMeasure),
-      ComplementItem.create(UniqueIdentifier.create(), "choco balls", UniqueIdentifier.create(), unitOfMeasure)
+      ComplementItem.create(UniqueIdentifier.create(), "chocolate", unitOfMeasure),
+      ComplementItem.create(UniqueIdentifier.create(), "choco balls", unitOfMeasure)
     );
     
     var smallSize = ServingSize.createNew(
@@ -62,8 +62,7 @@ public class ProductDetailsDomainServiceTest {
           3,
           complementItensCategory2
         )
-      ),
-      new ArrayList<>()
+      )
     );
     
     var largeSize = ServingSize.createNew(
@@ -84,8 +83,7 @@ public class ProductDetailsDomainServiceTest {
           5,
           complementItensCategory2
         )
-      ),
-      new ArrayList<>()
+      )
     );
     
     product = ProductBuilder

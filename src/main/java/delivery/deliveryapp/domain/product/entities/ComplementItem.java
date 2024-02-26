@@ -12,21 +12,19 @@ import lombok.Setter;
 public class ComplementItem extends DomainEntity {
 
     private String name;
-    private UniqueIdentifier feedstockId;
     private UnitOfMeasurement baseConsumptionPerUnity;
 
-    private ComplementItem(UniqueIdentifier id, String name, UniqueIdentifier feedstockId, UnitOfMeasurement baseConsumptionPerUnity) {
+    private ComplementItem(UniqueIdentifier id, String name, UnitOfMeasurement baseConsumptionPerUnity) {
         super(id);
         this.name = name;
-        this.feedstockId = feedstockId;
         this.baseConsumptionPerUnity = baseConsumptionPerUnity;
     }
 
-    public static ComplementItem create(UniqueIdentifier id, String name, UniqueIdentifier feedstockId, UnitOfMeasurement baseConsumptionPerUnity) {
-        return new ComplementItem(id, name, feedstockId, baseConsumptionPerUnity);
+    public static ComplementItem create(UniqueIdentifier id, String name, UnitOfMeasurement baseConsumptionPerUnity) {
+        return new ComplementItem(id, name, baseConsumptionPerUnity);
     }
     
     public static ComplementItem create(String name, UniqueIdentifier feedstockId, UnitOfMeasurement baseConsumptionPerUnity) {
-        return new ComplementItem(UniqueIdentifier.create(), name, feedstockId, baseConsumptionPerUnity);
+        return new ComplementItem(UniqueIdentifier.create(), name, baseConsumptionPerUnity);
     }
 }

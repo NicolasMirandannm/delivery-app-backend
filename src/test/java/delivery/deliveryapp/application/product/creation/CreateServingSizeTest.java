@@ -1,11 +1,9 @@
 package delivery.deliveryapp.application.product.creation;
 
 import delivery.deliveryapp.application.product.creation.dtos.CreateComplementCategoryDto;
-import delivery.deliveryapp.application.product.creation.dtos.CreateFeedstockBaseConsumptionDto;
 import delivery.deliveryapp.application.product.creation.dtos.CreateServingSizeDto;
 import delivery.deliveryapp.domain.enums.MeasurementType;
 import delivery.deliveryapp.domain.product.entities.ComplementCategory;
-import delivery.deliveryapp.domain.product.entities.ProductFeedstockBaseConsumption;
 import delivery.deliveryapp.shared.UniqueIdentifier;
 import delivery.deliveryapp.shared.exceptions.ApplicationException;
 import delivery.deliveryapp.shared.service.CreationService;
@@ -25,10 +23,7 @@ public class CreateServingSizeTest {
 
     @InjectMocks
     private CreateServingSize createServingSize;
-
-    @Mock
-    private CreationService<CreateFeedstockBaseConsumptionDto, ProductFeedstockBaseConsumption> createFeedstockBaseConsumption;
-
+    
     @Mock
     private CreationService<CreateComplementCategoryDto, ComplementCategory> createComplementCategory;
 
@@ -37,22 +32,13 @@ public class CreateServingSizeTest {
     @BeforeEach
     void setup() {
         MockitoAnnotations.openMocks(this);
-        var feedstocksBaseConsumptionDto = new CreateFeedstockBaseConsumptionDto(UniqueIdentifier.create().value(), 1, MeasurementType.GRAM, 10.0);
         servingSizeDto = new CreateServingSizeDto(
                 "pequeno",
                 "tamanho pequeno",
                 false,
                 9.99,
-                new ArrayList<CreateComplementCategoryDto>(),
-                List.of(feedstocksBaseConsumptionDto)
+                new ArrayList<CreateComplementCategoryDto>()
         );
-
-        ProductFeedstockBaseConsumption feedstockBaseConsumption = ProductFeedstockBaseConsumption.createNew(
-                UniqueIdentifier.create(),
-                1,
-                UnitOfMeasurement.create(MeasurementType.GRAM, 10.0)
-        );
-        Mockito.when(createFeedstockBaseConsumption.create(feedstocksBaseConsumptionDto)).thenReturn(feedstockBaseConsumption);
     }
 
     @Test
@@ -64,7 +50,6 @@ public class CreateServingSizeTest {
         Assertions.assertEquals(servingSizeDto.getDescription(), servingSizeCreated.getDescription());
         Assertions.assertEquals(servingSizeDto.getComplementsIsActive(), servingSizeCreated.getActivedComplements());
         Assertions.assertEquals(servingSizeCreated.getComplementCategories().size(), 0);
-        Assertions.assertEquals(1, servingSizeCreated.getFeedstocksBaseConsumption().size());
     }
 
     @Test
@@ -73,18 +58,6 @@ public class CreateServingSizeTest {
 
         ApplicationException exception = Assertions.assertThrows(ApplicationException.class, () -> {
             createServingSize.create(null);
-        });
-
-        Assertions.assertEquals(expectedMessage, exception.getMessage());
-    }
-
-    @Test
-    void should_throw_an_exception_when_serving_size_has_a_null_feedstocksBaseConsumptionDto() {
-        var expectedMessage = "servingSizeDto has a null feedstock base consumptions.";
-
-        ApplicationException exception = Assertions.assertThrows(ApplicationException.class, () -> {
-            servingSizeDto.setFeedstocksBaseConsumptions(null);
-            createServingSize.create(servingSizeDto);
         });
 
         Assertions.assertEquals(expectedMessage, exception.getMessage());

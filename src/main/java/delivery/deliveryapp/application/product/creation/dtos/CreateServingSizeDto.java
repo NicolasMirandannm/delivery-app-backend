@@ -15,5 +15,4 @@ public class CreateServingSizeDto {
     private Boolean complementsIsActive;
     private Double price;
     private List<CreateComplementCategoryDto> complementCategories;
-    private List<CreateFeedstockBaseConsumptionDto> feedstocksBaseConsumptions;
 }

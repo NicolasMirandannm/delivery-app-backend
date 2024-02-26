@@ -24,10 +24,8 @@ public class CreateComplementCategoryTest {
   void setup() {
     MockitoAnnotations.openMocks(this);
     
-    var feedstockId = UniqueIdentifier.create().value();
-    var complementItemDto = new CreateComplementItemDto("Banana", feedstockId, MeasurementType.GRAM, 50.0);
+    var complementItemDto = new CreateComplementItemDto("Banana", MeasurementType.GRAM, 50.0);
     complementCategoryDto = new CreateComplementCategoryDto("Fruits", 5, List.of(complementItemDto));
-    
   }
   
   @Test

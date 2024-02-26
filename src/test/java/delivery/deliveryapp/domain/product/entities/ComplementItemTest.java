@@ -11,13 +11,11 @@ import org.junit.jupiter.api.Test;
 public class ComplementItemTest {
 
     private String name;
-    private UniqueIdentifier feedstockId;
     private UnitOfMeasurement baseConsumptionPerUnity;
 
     @BeforeEach
     void setup() {
         this.name = "Sprinkles";
-        this.feedstockId = UniqueIdentifier.create();
 
         var measurementType = MeasurementType.GRAM;
         var amount = 20.0;
@@ -26,7 +24,7 @@ public class ComplementItemTest {
 
     @Test
     void should_create_a_complement_item() {
-        var complementItemCreated = ComplementItem.create(UniqueIdentifier.create(), name, feedstockId, baseConsumptionPerUnity);
+        var complementItemCreated = ComplementItem.create(UniqueIdentifier.create(), name, baseConsumptionPerUnity);
 
         Assertions.assertNotNull(complementItemCreated.getId());
     }

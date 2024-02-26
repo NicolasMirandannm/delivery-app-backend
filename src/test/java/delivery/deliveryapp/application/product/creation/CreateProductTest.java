@@ -2,7 +2,6 @@ package delivery.deliveryapp.application.product.creation;
 
 import delivery.deliveryapp.application.fileupload.UploadFile;
 import delivery.deliveryapp.application.product.creation.dtos.CreateComplementCategoryDto;
-import delivery.deliveryapp.application.product.creation.dtos.CreateFeedstockBaseConsumptionDto;
 import delivery.deliveryapp.application.product.creation.dtos.CreateProductDto;
 import delivery.deliveryapp.application.product.creation.dtos.CreateServingSizeDto;
 import delivery.deliveryapp.domain.builder.ProductBuilder;
@@ -54,10 +53,9 @@ public class CreateProductTest {
 
         var categoryId = UniqueIdentifier.create().value();
         var servingSize = product.getServingSizes().get(0);
-        var feedstocksBaseConsumption = List.of(new CreateFeedstockBaseConsumptionDto(UniqueIdentifier.create().value(), 1, MeasurementType.GRAM, 10.0));
         servingSizeDto = new CreateServingSizeDto(
                 servingSize.getName(),servingSize.getDescription(),servingSize.getActivedComplements(),
-                servingSize.getPrice(), new ArrayList<CreateComplementCategoryDto>(), feedstocksBaseConsumption
+                servingSize.getPrice(), new ArrayList<CreateComplementCategoryDto>()
         );
         createProductDto = new CreateProductDto("Mongo Ice cream", "product description", categoryId, List.of(servingSizeDto));
         createProductDto.setImage(new MockMultipartFile("image", "image.jpg", "image/jpeg", "image".getBytes()));

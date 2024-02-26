@@ -2,7 +2,6 @@ package delivery.deliveryapp.domain.builder;
 
 import delivery.deliveryapp.domain.enums.MeasurementType;
 import delivery.deliveryapp.domain.product.entities.ComplementCategory;
-import delivery.deliveryapp.domain.product.entities.ProductFeedstockBaseConsumption;
 import delivery.deliveryapp.domain.product.entities.ServingSize;
 import delivery.deliveryapp.shared.UniqueIdentifier;
 import delivery.deliveryapp.shared.valueObjects.UnitOfMeasurement;
@@ -16,7 +15,6 @@ public final class ServingSizeBuilder {
     private String description;
     private Boolean activedComplements = false;
     private Double price;
-    private List<ProductFeedstockBaseConsumption> feedstocksBaseConsumption;
     private UniqueIdentifier id;
 
     private ServingSizeBuilder() {
@@ -56,20 +54,13 @@ public final class ServingSizeBuilder {
         return this;
     }
 
-    public ServingSizeBuilder withFeedstocksBaseConsumption() {
-        var feedstockBaseConsumption = ProductFeedstockBaseConsumption
-                .create(UniqueIdentifier.create(), UniqueIdentifier.create(), 1, UnitOfMeasurement.create(MeasurementType.GRAM, 10.0));
-        this.feedstocksBaseConsumption = List.of(feedstockBaseConsumption);
-        return this;
-    }
-
     public ServingSizeBuilder withId() {
         this.id = UniqueIdentifier.create();;
         return this;
     }
 
     public ServingSize build() {
-        ServingSize servingSize = ServingSize.create(id, name, description, activedComplements, price, complementCategories, feedstocksBaseConsumption);
+        ServingSize servingSize = ServingSize.create(id, name, description, activedComplements, price, complementCategories);
         servingSize.setComplementCategories(complementCategories);
         return servingSize;
     }

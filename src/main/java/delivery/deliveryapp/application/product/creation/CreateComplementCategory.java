@@ -23,9 +23,8 @@ public class CreateComplementCategory implements CreationService<CreateComplemen
     var complements = createComplementCategoryDto.getComplements().stream().map((dto) -> {
       var complementId = UniqueIdentifier.create();
       var name = dto.getName();
-      var feedstockId = UniqueIdentifier.createFrom(dto.getFeedstockId());
       var baseConsumptionPerUnity = UnitOfMeasurement.create(dto.getMeasureType(), dto.getAmountOfMeasure());
-      return ComplementItem.create(complementId, name, feedstockId, baseConsumptionPerUnity);
+      return ComplementItem.create(complementId, name, baseConsumptionPerUnity);
     }).toList();
     
     return ComplementCategory.create(categoryId, categoryName, amountAvailable, complements);

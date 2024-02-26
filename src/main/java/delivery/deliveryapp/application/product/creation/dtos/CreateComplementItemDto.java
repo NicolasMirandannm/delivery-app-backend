@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CreateComplementItemDto {
   private String name;
-  private String feedstockId;
   private MeasurementType measureType;
   private Double amountOfMeasure;
 }

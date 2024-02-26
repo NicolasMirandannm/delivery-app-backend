@@ -28,13 +28,11 @@ public class ComplementItemMapperTest {
     complementItem = ComplementItem.create(
       UniqueIdentifier.create(),
       "banana",
-      UniqueIdentifier.create(),
       UnitOfMeasurement.create(MeasurementType.GRAM, 50.0)
     );
     
     complementItemSchema = new ComplementItemSchema(
       complementItem.getIdValue(),
-      complementItem.getFeedstockId().value(),
       "banana",
       MeasurementType.GRAM,
       50.0

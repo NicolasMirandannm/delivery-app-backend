@@ -3,7 +3,6 @@ package delivery.deliveryapp.domain.builder;
 import delivery.deliveryapp.domain.enums.MeasurementType;
 import delivery.deliveryapp.domain.product.Product;
 import delivery.deliveryapp.domain.product.entities.ComplementCategory;
-import delivery.deliveryapp.domain.product.entities.ProductFeedstockBaseConsumption;
 import delivery.deliveryapp.domain.product.entities.ServingSize;
 import delivery.deliveryapp.shared.UniqueIdentifier;
 import delivery.deliveryapp.shared.valueObjects.UnitOfMeasurement;
@@ -55,9 +54,8 @@ public class ProductBuilder {
     }
 
     public ProductBuilder withServingSizes() {
-        var feedstocksBaseConsumption = List.of(ProductFeedstockBaseConsumption.createNew(UniqueIdentifier.create(), 1, UnitOfMeasurement.create(MeasurementType.GRAM, 10.0)));
         var complementCategories = new ArrayList<ComplementCategory>();
-        var servingSize = ServingSize.create(UniqueIdentifier.create(), "Pequeno", "tamanho pequeno", true, 9.99, complementCategories, feedstocksBaseConsumption);
+        var servingSize = ServingSize.create(UniqueIdentifier.create(), "Pequeno", "tamanho pequeno", true, 9.99, complementCategories);
         servingSizes = List.of(servingSize);
         return this;
     }
@@ -68,8 +66,7 @@ public class ProductBuilder {
     }
 
     public ProductBuilder withServingSizeInative() {
-        var feedstocksBaseConsumption = List.of(ProductFeedstockBaseConsumption.createNew(UniqueIdentifier.create(), 1, UnitOfMeasurement.create(MeasurementType.GRAM, 10.0)));
-        var servingSize = ServingSize.create(UniqueIdentifier.create(), "Pequeno", "tamanho pequeno", false, 9.99, null, feedstocksBaseConsumption);
+        var servingSize = ServingSize.create(UniqueIdentifier.create(), "Pequeno", "tamanho pequeno", false, 9.99, null);
         servingSizes = List.of(servingSize);
         return this;
     }

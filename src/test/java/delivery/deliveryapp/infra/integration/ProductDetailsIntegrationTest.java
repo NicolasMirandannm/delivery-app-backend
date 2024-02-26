@@ -31,7 +31,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
@@ -56,7 +55,7 @@ public class ProductDetailsIntegrationTest {
       .withName("Ice cream")
       .withIsCustomizable(true)
       .withDescription("200ml of a delicious ice cream")
-      .withImageUri("images/ice-cream.jpg")
+      .withImageUri(null)
       .withServingSizes(List.of(
         ServingSizeBuilder
           .aServingSize()
@@ -83,7 +82,7 @@ public class ProductDetailsIntegrationTest {
   void tearDown() {
     productRepository.deleteBy(productId);
   }
-  
+
   @Test
   void should_return_product_details() throws Exception {
     var productId = this.productId.value();
@@ -95,13 +94,13 @@ public class ProductDetailsIntegrationTest {
     var prices = List.of(
       new PriceDto("Unique", 15.0)
     );
-    var detailedProductJson = objectMapper.writeValueAsString(new ProductDetailsDto(productId, "Ice cream", "200ml of a delicious ice cream", "images/ice-cream.jpg", complementCategories, prices));
-  
+    var detailedProductJson = objectMapper.writeValueAsString(new ProductDetailsDto(productId, "Ice cream", "200ml of a delicious ice cream", null, complementCategories, prices));
+
     mockMvc.perform(MockMvcRequestBuilders.get("/product/detail/{productId}", productId))
       .andExpect(MockMvcResultMatchers.status().isOk())
       .andExpect(MockMvcResultMatchers.content().json(detailedProductJson));
   }
-  
+
   @Test
   void should_return_not_found_when_product_id_doesnt_match_any_product() throws Exception {
     mockMvc
@@ -109,14 +108,14 @@ public class ProductDetailsIntegrationTest {
       .andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
       .andExpect(result -> assertEquals("Product not found.", result.getResolvedException().getMessage()));
   }
-  
+
   @Test
   void should_return_not_found_when_product_id_in_request_is_null() throws Exception {
     mockMvc
       .perform(MockMvcRequestBuilders.get("/product/detail/{productId}", "").content("application/json"))
       .andExpect(MockMvcResultMatchers.status().isNotFound());
   }
-  
+
   @Test
   void should_return_bad_request_when_product_id_has_a_invalid_format() throws Exception {
     mockMvc

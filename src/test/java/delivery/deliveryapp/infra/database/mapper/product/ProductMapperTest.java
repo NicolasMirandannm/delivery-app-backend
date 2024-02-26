@@ -40,6 +40,7 @@ public class ProductMapperTest {
     product = ProductBuilder
       .aProduct()
       .withName("product")
+      .withImageUri("image-uri")
       .build();
     
     var productId = product.getIdValue();
@@ -51,7 +52,6 @@ public class ProductMapperTest {
     var productCategoryId = product.getProductCategoryId();
     
     productSchema = new ProductSchema(productId, productName, productDescription, productImageURI, productIsCustomizable, productIsActived, productCategoryId, new ArrayList<>());
-    
   }
   
   @Test

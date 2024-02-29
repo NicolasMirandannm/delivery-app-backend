@@ -66,7 +66,7 @@ public class ProductTest {
 
     @Test
     void should_create_a_new_product() {
-        var newProductCreated = Product.createNew(name, description, imageURI, categoryId);
+        var newProductCreated = Product.createNew(name, description, true, imageURI, categoryId);
 
         Assertions.assertNotNull(newProductCreated);
         Assertions.assertTrue(newProductCreated.getIsCustomizable());
@@ -79,7 +79,7 @@ public class ProductTest {
         var expectedErrorMessage = "cannot create a new product with empty name.";
 
         DomainException exception = Assertions.assertThrows(DomainException.class, () -> {
-            Product.createNew(null, description, imageURI, categoryId);
+            Product.createNew(null, description, false, imageURI, categoryId);
         });
 
         Assertions.assertEquals(expectedErrorMessage, exception.getMessage());
@@ -90,7 +90,7 @@ public class ProductTest {
         var expectedErrorMessage = "cannot create a new product without a product category identifier.";
 
         DomainException exception = Assertions.assertThrows(DomainException.class, () -> {
-            Product.createNew(name, description, imageURI, null);
+            Product.createNew(name, description, false, imageURI, null);
         });
 
         Assertions.assertEquals(expectedErrorMessage, exception.getMessage());
@@ -101,7 +101,7 @@ public class ProductTest {
         var expectedErrorMessage = "cannot create a new product with empty description.";
 
         DomainException exception = Assertions.assertThrows(DomainException.class, () -> {
-            Product.createNew(name, null, imageURI, categoryId);
+            Product.createNew(name, null, false, imageURI, categoryId);
         });
 
         Assertions.assertEquals(expectedErrorMessage, exception.getMessage());
@@ -112,7 +112,7 @@ public class ProductTest {
         var expectedErrorMessage = "cannot create a new product with empty image path.";
 
         DomainException exception = Assertions.assertThrows(DomainException.class, () -> {
-            Product.createNew(name, description, null, categoryId);
+            Product.createNew(name, description, false, null, categoryId);
         });
 
         Assertions.assertEquals(expectedErrorMessage, exception.getMessage());

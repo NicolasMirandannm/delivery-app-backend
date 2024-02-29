@@ -3,7 +3,6 @@ package delivery.deliveryapp.infra.database.mapper.product;
 import delivery.deliveryapp.domain.builder.ProductBuilder;
 import delivery.deliveryapp.domain.product.Product;
 import delivery.deliveryapp.domain.product.entities.ServingSize;
-import delivery.deliveryapp.infra.config.filesystem.StorageService;
 import delivery.deliveryapp.infra.database.repository.mapper.Mapper;
 import delivery.deliveryapp.infra.database.repository.mapper.implementations.product.ProductMapper;
 import delivery.deliveryapp.infra.database.schemas.ProductSchema;

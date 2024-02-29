@@ -66,8 +66,8 @@ public class ProductDetailsIntegrationTest {
           .withActivedComplements(true)
           .withComplementCategories(List.of(
             ComplementCategory.create("Toppings", 2, List.of(
-              ComplementItem.create("Chocolate", UniqueIdentifier.create(), UnitOfMeasurement.create(MeasurementType.MILILITER, 10.0)),
-              ComplementItem.create("Strawberry", UniqueIdentifier.create(), UnitOfMeasurement.create(MeasurementType.MILILITER, 10.0))
+              ComplementItem.createNew("Chocolate", UnitOfMeasurement.create(MeasurementType.MILILITER, 10.0)),
+              ComplementItem.createNew("Strawberry", UnitOfMeasurement.create(MeasurementType.MILILITER, 10.0))
             ))
           ))
           .build()

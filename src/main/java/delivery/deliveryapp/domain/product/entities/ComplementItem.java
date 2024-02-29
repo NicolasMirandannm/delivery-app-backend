@@ -24,7 +24,7 @@ public class ComplementItem extends DomainEntity {
         return new ComplementItem(id, name, baseConsumptionPerUnity);
     }
     
-    public static ComplementItem create(String name, UniqueIdentifier feedstockId, UnitOfMeasurement baseConsumptionPerUnity) {
+    public static ComplementItem createNew(String name, UnitOfMeasurement baseConsumptionPerUnity) {
         return new ComplementItem(UniqueIdentifier.create(), name, baseConsumptionPerUnity);
     }
 }

@@ -37,14 +37,13 @@ public class Product extends AggregateRoot {
         return new Product(id, name, description, imageURI, isCustomizable, categoryId, servingSizes, isActived);
     }
 
-    public static Product createNew(String name, String description, String imageURI, UniqueIdentifier categoryId) {
+    public static Product createNew(String name, String description, Boolean isCustomizable, String imageURI, UniqueIdentifier categoryId) {
         DomainException.whenIsNull(name, "cannot create a new product with empty name.");
         DomainException.whenIsNull(description, "cannot create a new product with empty description.");
         DomainException.whenIsNull(imageURI, "cannot create a new product with empty image path.");
         DomainException.whenIsNull(categoryId, "cannot create a new product without a product category identifier.");
 
         var id = UniqueIdentifier.create();
-        var isCustomizable = true;
         var isActive = true;
         var servingSizes = new ArrayList<ServingSize>();
         return Product.create(id,name, description, imageURI, isCustomizable, categoryId, servingSizes, isActive);

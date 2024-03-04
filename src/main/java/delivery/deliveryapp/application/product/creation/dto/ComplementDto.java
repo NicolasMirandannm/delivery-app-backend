@@ -16,7 +16,7 @@ public class ComplementDto {
   @NoArgsConstructor
   public static class AmountBySize {
     private String sizeDescription;
-    private Integer amountAvailable;
+    private Integer amountAvailableToCustumer;
   }
   private String categoryName;
   private List<AmountBySize> amountBySize;

@@ -90,7 +90,7 @@ public class CreateProductService implements CreationService<ProductDto, Product
       amountBySize.getSizeDescription().equals(sizeName))
       .findFirst()
       .orElseThrow(() -> new InfraException("Complement size not found"))
-      .getAmountAvailable();
+      .getAmountAvailableToCustumer();
     var complementaryItems = complementDto.getComplementaryItems().stream().map(item ->
       ComplementItem.createNew(
         item.getName(),

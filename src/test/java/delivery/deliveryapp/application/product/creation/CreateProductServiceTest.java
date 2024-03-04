@@ -166,7 +166,7 @@ public class CreateProductServiceTest {
     var productCreated = createProductService.create(productDto);
     var complementCreated = productCreated.getServingSizes().get(0).getComplementCategories().get(0);;
     
-    assertEquals(complementDto.getAmountBySize().get(0).getAmountAvailable(), complementCreated.getAmountAvailable());
+    assertEquals(complementDto.getAmountBySize().get(0).getAmountAvailableToCustumer(), complementCreated.getAmountAvailable());
     assertEquals(complementDto.getCategoryName(), complementCreated.getCategoryName());
     assertEquals(1, complementCreated.getComplements().size());
   }
